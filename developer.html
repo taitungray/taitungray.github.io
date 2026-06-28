@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成語大冒險 - 專為國小生設計的互動成語遊戲</title>
+    <meta name="description" content="《成語大冒險》專為國小學生設計的互動式成語學習遊戲！透過 3D 黏土卡通風格插圖與多種挑戰模式，讓小朋友在玩樂中輕鬆掌握成語。">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d56f63;
+            --primary-light: #fcebe9;
+            --primary-dark: #b85a4f;
+            --secondary-color: #f3a683;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --shadow-hover: 0 12px 40px 0 rgba(213, 111, 99, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            background-image: var(--bg-gradient);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text img {
+            width: 40px;
+            border-radius: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 5% 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Abstract shapes background */
+        .shape {
+            position: absolute;
+            filter: blur(50px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .shape-1 {
+            background: var(--primary-color);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: 10%;
+            left: -5%;
+        }
+        
+        .shape-2 {
+            background: var(--secondary-color);
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            width: 100%;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(213, 111, 99, 0.15);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary-dark), var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-play {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--text-dark);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-play .sub {
+            font-size: 0.7rem;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .btn-play .main {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .app-mockup {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .app-mockup:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .app-mockup img {
+            width: 60%;
+            border-radius: 25%;
+            box-shadow: 0 20px 40px rgba(213, 111, 99, 0.3);
+            margin-bottom: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .app-mockup:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 5%;
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-gradient);
+            padding: 2.5rem;
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            transform-origin: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: #fff;
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .hero-content p {
+                margin: 0 auto 2rem;
+            }
+            .cta-buttons {
+                justify-content: center;
+            }
+            .app-mockup {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo-text">
+            <img src="assets/app_icon.png" alt="成語大冒險 Logo">
+            成語大冒險
+        </a>
+        <div class="nav-links">
+            <a href="#features">遊戲特色</a>
+            <a href="privacy.html">隱私權政策</a>
+        </div>
+    </nav>
+
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">🔥 學習類 APP 推薦</div>
+                <h1>輕鬆玩樂學成語<br>成為語文狀元！</h1>
+                <p>專為國小學生設計的互動式成語學習遊戲！透過 3D 黏土卡通風格插圖、生活化例句以及 13 種趣味挑戰模式，讓小朋友在玩樂中輕鬆掌握成語。</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-play" onclick="alert('即將在 Google Play 上架！')">
+                        <svg viewBox="0 0 512 512" width="24" height="24" fill="currentColor">
+                            <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+                        </svg>
+                        <div>
+                            <span class="sub">GET IT ON</span>
+                            <span class="main">Google Play</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="app-mockup">
+                    <img src="assets/app_icon.png" alt="成語大冒險 Icon">
+                    <h2 style="color: var(--primary-color); margin-bottom: 10px;">成語大冒險</h2>
+                    <p style="color: var(--text-light); text-align: center; font-size: 0.9rem;">完全離線遊玩<br>無廣告綠色環境</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2>豐富的學習模式</h2>
+            <p style="color: var(--text-light);">13 種多樣化的遊戲玩法，全方位提升語文能力</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🖼️</div>
+                <h3>看圖猜成語</h3>
+                <p>觀察精美的 3D 動畫風插圖，從字元池中拼出正確成語，激發聯想力！</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎒</div>
+                <h3>升官晉爵系統</h3>
+                <p>答對賺取經驗值（XP），從「童生」一路晉升至最高榮譽「狀元」！</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">✏️</div>
+                <h3>成語填空賽</h3>
+                <p>融入國小日常生活例句，挖空填字強化語文實用與寫作能力。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📓</div>
+                <h3>專屬成語筆記</h3>
+                <p>自動收錄解鎖過的成語，隨時複習注音、拼音、解釋與例句。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <h3>計時挑戰賽</h3>
+                <p>60 秒極限答題，答對加秒、答錯扣秒，挑戰自己的最高得分！</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>離線安全遊玩</h3>
+                <p>無需網路連線，無干擾廣告，符合兒童保護政策，家長最放心。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/app_icon.png" alt="Logo" width="30" style="border-radius: 8px;">
+                成語大冒險
+            </div>
+            <div class="footer-links">
+                <a href="#features">遊戲特色</a>
+                <a href="privacy.html">隱私權政策</a>
+                <a href="mailto:support@example.com">聯絡我們</a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 成語大冒險. All rights reserved. 專為國小生設計的語文學習APP。
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll effect for nav
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = 'var(--shadow-soft)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
