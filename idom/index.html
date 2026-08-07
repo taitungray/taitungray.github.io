@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>成語大冒險 - 成語遊戲</title>
+
+  <!-- SEO & PWA Meta -->
+  <meta name="description" content="專為國小學生設計的成語學習遊戲 App，透過看圖猜成語、成語填空與翻牌配對，讓小朋友在玩樂中輕鬆學習！">
+  <meta name="theme-color" content="#FF8B94">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="shortcut icon" href="assets/app_icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/app_icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Outfit:wght@400;700;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=1.0.42-2026-08-07">
+</head>
+
+<body>
+
+  <!-- Confetti Canvas for Celebrations -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Main App Frame -->
+  <div class="app-frame">
+
+    <!-- Web-based Custom Splash Screen (全螢幕書蟲海報，限制在 app-frame 範圍內) -->
+    <div id="custom-web-splash" style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+      background: #d56f63;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease;
+    ">
+      <img src="assets/splash.webp" style="
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      " alt="Splash Screen">
+    </div>
+
+    <!-- 1. SPLASH SCREEN (首頁) -->
+    <section id="splash-screen" class="app-screen active">
+      <div class="splash-bg-circle circle-1"></div>
+      <div class="splash-bg-circle circle-2"></div>
+      <div class="splash-bg-circle circle-3"></div>
+
+      <!-- 漂浮裝飾小圖示 -->
+      <div class="floating-item item-1">📚</div>
+      <div class="floating-item item-2">📜</div>
+      <div class="floating-item item-3">✏️</div>
+      <div class="floating-item item-4">⭐</div>
+      <div class="floating-item item-5">☁️</div>
+      <div class="floating-item item-6"><span aria-hidden="true">✨</span></div>
+      <div class="floating-item item-7">🎨</div>
+
+      <div class="splash-content">
+        <div class="mascot-container">
+          <img src="assets/app_icon.png" alt="小書蟲吉祥物" class="mascot-bounce">
+        </div>
+        <h1 class="game-title">成語大冒險</h1>
+        <button id="start-game-btn" class="btn btn-primary btn-large btn-pop">
+          <span>開始冒險</span>
+        </button>
+        <div class="splash-cloud-panel">
+          <button id="cloud-save-btn" class="btn btn-secondary btn-small cloud-login-btn" title="登入雲端存檔"
+            aria-label="登入雲端存檔">
+            ☁️ 登入雲端存檔
+          </button>
+          <div class="cloud-account-status" id="cloud-account-status" hidden>
+            <span id="cloud-account-label">雲端已登入</span>
+            <button id="cloud-signout-btn" class="cloud-signout-btn" type="button" title="登出雲端帳號"
+              aria-label="登出雲端帳號">登出</button>
+          </div>
+        </div>
+        <div class="pwa-install-container" id="pwa-install-container" style="display: none;">
+          <button id="pwa-install-btn" class="btn btn-secondary btn-small">
+            📥 安裝 App 到桌面
+          </button>
+        </div>
+      </div>
+      <div class="splash-footer">
+        <div class="version-info">
+          <span>版本 v1.0.42</span>
+        </div>
+        <p>© 2026 成語大冒險</p>
+        <p style="margin-top: 5px;">
+          <a href="https://taitungray.github.io/privacy.html" target="_blank"
+            style="color: #64748B; text-decoration: underline; font-size: 13.6px;">隱私權政策</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. MAIN DASHBOARD (冒險地圖與主畫面) -->
+    <section id="dashboard-screen" class="app-screen">
+      <!-- Top Profile Bar -->
+      <header class="profile-bar">
+        <div class="profile-main-row">
+          <div class="user-avatar-group">
+            <div class="avatar-ring"
+              style="overflow: hidden; border: 2px solid var(--accent); background: rgba(255, 255, 255, 0.5);">
+              <img id="user-avatar-img" src="assets/mascots/mascot_stage1.webp" alt="頭像"
+                style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <div class="user-info">
+              <div class="user-name" id="user-name">成語小達人</div>
+              <div class="user-rank" id="user-rank">等級：童生 (Lv.1)</div>
+            </div>
+          </div>
+          <div class="xp-container">
+            <div class="currency-group"
+              style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: nowrap; margin-bottom: 4px;">
+              <div class="energy-display-container">
+                <span class="energy-icon">⚡</span>
+                <span data-energy-amount>0</span>
+              </div>
+              <div class="draw-ticket-display-container">
+                <span class="draw-ticket-icon">🎫</span>
+                <span data-draw-ticket-amount>0</span>
+              </div>
+            </div>
+            <div class="xp-label">
+              <span>經驗值</span>
+              <span id="xp-text">0 / 100</span>
+            </div>
+            <div class="xp-bar-outer">
+              <div class="xp-bar-inner" id="xp-bar-inner" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Tabs -->
+      <div class="dashboard-tabs">
+        <button class="dash-tab active" id="dash-tab-adventure"><img class="tab-icon"
+            src="assets/icons/nav_adventure.svg" alt=""> 冒險闖關地圖</button>
+        <button class="dash-tab" id="dash-tab-challenge"><img class="tab-icon" src="assets/icons/nav_achievements.svg"
+            alt=""> 挑戰大廳</button>
+      </div>
+
+      <!-- Main Scrollable Dashboard Content -->
+      <div class="dashboard-scrollable dashboard-panel-scroll">
+
+        <!-- Panel 1: Adventure View -->
+        <div id="adventure-view" class="tab-panel active">
+          <div class="adventure-map-container" id="adventure-map-container" style="padding: 10px 0;">
+            <!-- Levels will be dynamically populated here -->
+          </div>
+        </div>
+
+        <!-- Panel 2: Challenge View -->
+        <div id="challenge-view" class="tab-panel">
+          <h2 class="section-title" style="margin-top: 10px;">選擇學習模式</h2>
+          <div class="mode-grid">
+
+
+            <!-- Mode 1: Guess by Image -->
+            <div class="mode-card" id="mode-image">
+              <div class="mode-icon"><img src="assets/icons/mode_image.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="看圖猜成語"></div>
+              <div class="mode-info">
+                <h3>看圖猜成語</h3>
+                <p>看可愛插畫，猜出正確成語！</p>
+                <span class="badge badge-accent">生動趣味</span>
+              </div>
+            </div>
+
+            <!-- Mode 2: Fill-in-the-Blank -->
+            <div class="mode-card" id="mode-fill">
+              <div class="mode-icon"><img src="assets/icons/mode_fill.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="成語填空賽"></div>
+              <div class="mode-info">
+                <h3>成語填空賽</h3>
+                <p>配合生活句，選出漏掉的字！</p>
+                <span class="badge badge-success">生活實用</span>
+              </div>
+            </div>
+
+            <!-- Mode 3: Memory Pairing -->
+            <div class="mode-card" id="mode-match">
+              <div class="mode-icon"><img src="assets/icons/mode_match.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="釋義配對牌"></div>
+              <div class="mode-info">
+                <h3>釋義配對牌</h3>
+                <p>翻牌連連看，配對成語與解釋！</p>
+                <span class="badge badge-primary">記憶大挑戰</span>
+              </div>
+            </div>
+
+            <!-- Mode 4: Time Challenge -->
+            <div class="mode-card" id="mode-time">
+              <div class="mode-icon"><img src="assets/icons/mode_time.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="計時挑戰賽"></div>
+              <div class="mode-info">
+                <h3>計時挑戰賽</h3>
+                <p>在 60 秒內挑戰極限，答對加秒！</p>
+                <span class="badge badge-accent" style="background-color: #FF5A5F; color: white;">刺激挑戰</span>
+              </div>
+            </div>
+
+            <!-- Mode 5: Typo Inspector -->
+            <div class="mode-card" id="mode-typo">
+              <div class="mode-icon"><img src="assets/icons/mode_typo.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="成語錯字糾察隊"></div>
+              <div class="mode-info">
+                <h3>成語錯字糾察隊</h3>
+                <p>找出成語中的錯別字並改正它！</p>
+                <span class="badge badge-accent" style="background-color: #AB47BC; color: white;">字形辨析</span>
+              </div>
+            </div>
+
+            <!-- Mode 6: Story Theatre -->
+            <div class="mode-card" id="mode-story">
+              <div class="mode-icon"><img src="assets/icons/mode_story.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="故事劇場"></div>
+              <div class="mode-info">
+                <h3>故事劇場</h3>
+                <p>根據情境句子，選出最適合的成語！</p>
+                <span class="badge badge-success" style="background-color: #26A69A; color: white;">情境應用</span>
+              </div>
+            </div>
+
+            <!-- Mode 7: Idiom Chain -->
+            <div class="mode-card" id="mode-chain">
+              <div class="mode-icon"><img src="assets/icons/mode_chain.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="成語接龍大挑戰"></div>
+              <div class="mode-info">
+                <h3>成語接龍大挑戰</h3>
+                <p>首尾相接，選擇能接續的成語！</p>
+                <span class="badge badge-primary" style="background-color: #42A5F5; color: white;">字尾接龍</span>
+              </div>
+            </div>
+
+            <!-- Mode 8: Crossword Puzzle -->
+            <div class="mode-card" id="mode-crossword">
+              <div class="mode-icon"><img src="assets/icons/mode_crossword.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="填字交叉拼圖"></div>
+              <div class="mode-info">
+                <h3>填字交叉拼圖</h3>
+                <p>動腦填入交叉成語的共同中文字！</p>
+                <span class="badge badge-accent" style="background-color: #FFA726; color: white;">空間聯想</span>
+              </div>
+            </div>
+
+            <!-- Mode 9: Radical Assembly -->
+            <div class="mode-card" id="mode-radical">
+              <div class="mode-icon"><img src="assets/icons/mode_radical.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="成語部首大裝配"></div>
+              <div class="mode-info">
+                <h3>成語部首大裝配</h3>
+                <p>將拆開的部首與偏旁重新組裝成字！</p>
+                <span class="badge badge-success" style="background-color: #8D6E63; color: white;">字形結構</span>
+              </div>
+            </div>
+
+            <!-- Mode 10: Bubble Archer -->
+            <div class="mode-card" id="mode-bubble">
+              <div class="mode-icon"><img src="assets/icons/mode_bubble.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="成語泡泡射手"></div>
+              <div class="mode-info">
+                <h3>成語泡泡射手</h3>
+                <p>快速擊破含有正確答案的上升泡泡！</p>
+                <span class="badge badge-accent" style="background-color: #FF7043; color: white;">動態速讀</span>
+              </div>
+            </div>
+
+            <!-- Mode 11: Look-alike Match -->
+            <div class="mode-card" id="mode-simchar">
+              <div class="mode-icon"><img src="assets/icons/mode_simchar.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="形近字大作戰"></div>
+              <div class="mode-info">
+                <h3>形近字大作戰</h3>
+                <p>找出形近字、音近字的最佳拼寫！</p>
+                <span class="badge badge-primary" style="background-color: #EC407A; color: white;">字形辨析</span>
+              </div>
+            </div>
+
+            <!-- Mode 12: Antonyms Match -->
+            <div class="mode-card" id="mode-antonym">
+              <div class="mode-icon"><img src="assets/icons/mode_antonym.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="反義詞連連看"></div>
+              <div class="mode-info">
+                <h3>反義詞連連看</h3>
+                <p>找出意思相反的成語！</p>
+                <span class="badge badge-success" style="background-color: #5C6BC0; color: white;">語意連結</span>
+              </div>
+            </div>
+
+            <!-- Mode 13: Synonyms Match -->
+            <div class="mode-card" id="mode-synonym">
+              <div class="mode-icon"><img src="assets/icons/mode_synonym.png"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit; transform: scale(1.15);"
+                  alt="近義詞連連看"></div>
+              <div class="mode-info">
+                <h3>近義詞連連看</h3>
+                <p>找出意思相近的成語！</p>
+                <span class="badge badge-primary" style="background-color: #43A047; color: white;">語意連結</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="adventure-zone-jump-container" class="adventure-zone-jump-slot"></div>
+    </section>
+
+    <!-- 3. LIBRARY SCREEN (成語卡圖鑑) -->
+    <section id="library-screen" class="app-screen">
+      <header class="screen-header">
+        <h2>📚 成語卡圖鑑</h2>
+        <p>查找卡片、套卡、稀有度與收藏進度</p>
+      </header>
+
+      <div class="library-content">
+        <div class="library-tabs" role="tablist" aria-label="圖鑑內容切換">
+          <button class="library-tab" id="library-tab-cards" type="button"><img class="tab-icon"
+              src="assets/icons/tab_cards.svg" alt=""> 卡片圖鑑</button>
+          <button class="library-tab active" id="library-tab-draw" type="button"><img class="tab-icon"
+              src="assets/icons/tab_draw.svg" alt=""> 抽卡套卡</button>
+        </div>
+
+        <div class="library-panel" id="library-panel-cards">
+          <!-- Search bar -->
+          <div class="search-box">
+            <input type="text" id="library-search-input" placeholder="搜尋成語、注音或拼音...">
+            <span class="search-icon">🔍</span>
+          </div>
+
+          <div class="library-filter-panel">
+            <select id="library-card-filter" class="library-filter-select" aria-label="收藏狀態篩選">
+              <option value="all">全部收藏狀態</option>
+              <option value="collected">已收藏</option>
+              <option value="uncollected">未收藏</option>
+            </select>
+            <select id="library-set-filter" class="library-filter-select" aria-label="套卡分類篩選">
+              <option value="all">全部套卡</option>
+            </select>
+            <select id="library-sort-filter" class="library-filter-select" aria-label="圖鑑排序">
+              <option value="default">預設排序</option>
+              <option value="rarity">稀有度高到低</option>
+              <option value="name">成語名稱排序</option>
+            </select>
+          </div>
+          <div class="library-filter-summary" id="library-filter-summary"></div>
+
+          <!-- Idioms list -->
+          <div class="library-grid" id="library-grid">
+            <!-- Dynamically filled with javascript -->
+          </div>
+        </div>
+
+        <div class="library-panel active" id="library-panel-draw">
+          <div class="library-card-hub">
+            <div class="gacha-panel">
+              <div class="gacha-stats"
+                style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <span>已收集卡片：<strong id="cards-collected-count">0/--</strong></span>
+                <div class="currency-group" style="display: flex; gap: 6px; align-items: center; flex-wrap: nowrap;">
+                  <div class="energy-display-container">
+                    <span class="energy-icon">⚡</span>
+                    <span data-energy-amount>0</span>
+                  </div>
+                  <div class="draw-ticket-display-container">
+                    <span class="draw-ticket-icon">🎫</span>
+                    <span data-draw-ticket-amount>0</span>
+                  </div>
+                </div>
+              </div>
+              <div class="gacha-actions">
+                <button id="gacha-draw-btn" class="btn btn-primary gacha-btn btn-pop">
+                  <span class="gacha-btn-title"><span aria-hidden="true">✨</span> 單抽</span>
+                  <span class="gacha-btn-sub">知識閃卡 · <span aria-hidden="true">🎫</span>1 (或 <span
+                      aria-hidden="true">⚡</span>200)</span>
+                </button>
+                <button id="gacha-ten-draw-btn" class="btn btn-secondary gacha-btn gacha-ten-btn btn-pop">
+                  <span class="gacha-btn-title">🌈 十連抽</span>
+                  <span class="gacha-btn-sub">+ 保底 · <span aria-hidden="true">🎫</span>9 (或 <span
+                      aria-hidden="true">⚡</span>1800)</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-set-toolbar">
+              <div class="card-set-toolbar-copy">
+                <strong>主題套卡</strong>
+                <span id="card-set-summary">挑一組看看缺哪些卡</span>
+              </div>
+            </div>
+            <div class="card-sets-banner-container" id="card-sets-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ACHIEVEMENTS SCREEN (榮譽榜) -->
+    <section id="achievements-screen" class="app-screen">
+      <header class="screen-header">
+        <h2><span aria-hidden="true">🏆</span> 榮譽成就殿堂</h2>
+        <p>挑戰任務，收集亮麗的勳章！</p>
+      </header>
+
+      <div class="achievements-grid" id="achievements-grid">
+        <!-- Dynamically filled with javascript -->
+      </div>
+    </section>
+
+    <!-- 6. MASCOT SCREEN (書蟲小屋與能力館) -->
+    <section id="mascot-screen" class="app-screen">
+      <header class="screen-header mascot-header-container">
+        <div class="mascot-header-left">
+          <h2>🏠 小屋</h2>
+        </div>
+        <div class="home-toolbar">
+          <div class="currency-group" style="display: flex; gap: 6px; align-items: center; flex-wrap: nowrap;">
+            <div class="energy-display-container">
+              <span class="energy-icon">⚡</span>
+              <span id="energy-amount" data-energy-amount>0</span>
+            </div>
+            <div class="draw-ticket-display-container">
+              <span class="draw-ticket-icon">🎫</span>
+              <span data-draw-ticket-amount>0</span>
+            </div>
+          </div>
+
+          <button id="daily-checkin-btn" class="circle-btn" title="每日簽到" aria-label="每日簽到"><span
+              aria-hidden="true">📅</span></button>
+          <button id="bgm-toggle-btn" class="circle-btn" title="背景音樂" aria-label="背景音樂">🔊</button>
+        </div>
+      </header>
+
+      <!-- Sub-tabs: 小屋 / 能力 / 成果 -->
+      <div class="mascot-sub-tabs">
+        <button class="sub-tab active" id="sub-tab-home"><img class="tab-icon" src="assets/icons/tab_home.svg" alt="">
+          小屋</button>
+        <button class="sub-tab" id="sub-tab-stats"><img class="tab-icon" src="assets/icons/tab_stats.svg" alt="">
+          能力</button>
+        <button class="sub-tab" id="sub-tab-report"><img class="tab-icon" src="assets/icons/tab_report.svg" alt="">
+          成果</button>
+      </div>
+
+      <!-- Scrollable Content Area -->
+      <div class="mascot-screen-content">
+        <!-- Sub-screen 1: Mascot Home -->
+        <div class="sub-screen active" id="sub-screen-home">
+          <!-- Mascot Pet Area -->
+          <div class="pet-area-container">
+            <div class="pet-bubble-speech" id="pet-bubble-speech">主人，今天我們要學什麼成語呢？ 📖</div>
+
+            <div class="pet-display-wrapper" style="margin-bottom: 8px;">
+              <div class="pet-display" id="pet-display-container">
+                <img id="pet-display-img" src="assets/mascots/mascot_stage1.webp" alt="小書蟲"
+                  style="width: 110px; height: 110px; object-fit: contain;">
+              </div>
+            </div>
+
+            <div class="pet-status-bar" style="margin-bottom: 12px; padding: 8px 20px;">
+              <div class="pet-name-plate">
+                <span id="pet-display-name">寶寶小書蟲</span>
+                <span class="pet-intimacy-badge" id="pet-intimacy-badge">親密等級 Lv.1</span>
+              </div>
+              <div class="pet-intimacy-container">
+                <div class="intimacy-label">
+                  <span class="intimacy-label-title">親密度</span>
+                  <span id="pet-intimacy-text">0 / 40</span>
+                  <span class="intimacy-dot">·</span>
+                  <span id="pet-intimacy-title">陌生</span>
+                </div>
+                <div class="intimacy-bar-outer">
+                  <div class="intimacy-bar-inner" id="pet-intimacy-bar" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pet Actions -->
+            <div class="pet-actions" style="margin-bottom: 16px;">
+              <button id="pet-btn-feed" class="btn btn-primary pet-action-btn">
+                🍬 餵食 <span class="action-cost">(<span aria-hidden="true">⚡</span>30)</span>
+              </button>
+              <button id="pet-btn-touch" class="btn btn-secondary pet-action-btn">
+                ✋ 摸摸 <span class="action-cooldown" id="touch-cooldown"></span>
+              </button>
+            </div>
+
+            <div class="intimacy-perks-panel" id="intimacy-perks-panel"></div>
+          </div>
+
+
+
+          <!-- Evolution Timeline Preview -->
+          <div class="pet-card evolution-preview" style="margin-top: 15px; padding: 15px;">
+            <div
+              style="font-size: 14.4px; font-weight: bold; color: var(--text-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <span>🧬</span> 小書蟲進化路線預覽
+            </div>
+            <div class="evolution-steps"
+              style="display: flex; justify-content: space-between; align-items: center; font-size: 18.4px; background: rgba(0,0,0,0.02); padding: 10px; border-radius: 12px; overflow-x: auto; gap: 4px; border: 1px solid #EAECEF;">
+              <span class="evo-step" id="evo-step-1" title="寶寶小書蟲 (Lv.1)">🐛</span>
+              <span class="evo-arrow">➡️</span>
+              <span class="evo-step" id="evo-step-2" title="發光小書蟲 (Lv.3)">✨</span>
+              <span class="evo-arrow">➡️</span>
+              <span class="evo-step" id="evo-step-3" title="秀才眼鏡蟲 (Lv.5)">👓</span>
+              <span class="evo-arrow">➡️</span>
+              <span class="evo-step" id="evo-step-4" title="狀元學者蟲 (Lv.8)">🎓</span>
+              <span class="evo-arrow">➡️</span>
+              <span class="evo-step" id="evo-step-5" title="七彩羽化蝶 (Lv.11)">🦋</span>
+              <span class="evo-arrow">➡️</span>
+              <span class="evo-step" id="evo-step-6" title="金冠蝴蝶王 (Lv.13)">👑</span>
+              <span class="evo-arrow">➡️</span>
+              <span class="evo-step" id="evo-step-7" title="九天化神龍 (Lv.16)">🐉</span>
+            </div>
+          </div>
+
+          <div class="daily-missions-panel" id="daily-missions-panel">
+            <!-- Dynamically populated -->
+          </div>
+
+          <div class="social-rewards-panel" id="social-rewards-panel">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Sub-screen 2: Stats & Radar -->
+        <div class="sub-screen" id="sub-screen-stats">
+          <!-- Overall Stats -->
+          <div class="stats-overview-grid">
+            <div class="stats-overview-item">
+              <span class="stat-number" id="stats-total-questions">0</span>
+              <span class="stat-label">作答題數</span>
+            </div>
+            <div class="stats-overview-item">
+              <span class="stat-number" id="stats-correct-questions">0</span>
+              <span class="stat-label">答對題數</span>
+            </div>
+            <div class="stats-overview-item">
+              <span class="stat-number" id="stats-correct-rate">0%</span>
+              <span class="stat-label">總正確率</span>
+            </div>
+          </div>
+
+          <!-- Ability Progress Bars -->
+          <h3 class="section-sub-title">成語核心能力指標</h3>
+          <div class="ability-bars-container" id="ability-bars-container">
+            <!-- Dynamic progress bars for shape, meaning, association, reaction, memory -->
+          </div>
+        </div>
+
+        <!-- Sub-screen 4: Learning Report -->
+        <div class="sub-screen" id="sub-screen-report">
+          <div class="learning-report-hero">
+            <div>
+              <span class="report-kicker">家長 / 老師安心查看</span>
+              <h3>學習成果</h3>
+              <p>整理本週學會、常錯成語與建議複習清單。</p>
+            </div>
+            <span class="report-hero-icon">📈</span>
+          </div>
+
+          <div class="report-summary-grid">
+            <div class="report-summary-card">
+              <span class="report-summary-value" id="report-week-learned">0</span>
+              <span class="report-summary-label">本週學會</span>
+            </div>
+            <div class="report-summary-card">
+              <span class="report-summary-value" id="report-accuracy">0%</span>
+              <span class="report-summary-label">累積正確率</span>
+            </div>
+            <div class="report-summary-card">
+              <span class="report-summary-value" id="report-review-count">0</span>
+              <span class="report-summary-label">建議複習</span>
+            </div>
+          </div>
+
+          <section class="report-section">
+            <div class="report-section-header">
+              <h4>本週新學會</h4>
+              <span id="report-week-note">近 7 天</span>
+            </div>
+            <div class="report-list" id="report-week-list"></div>
+          </section>
+
+          <section class="report-section">
+            <div class="report-section-header">
+              <h4>常錯成語</h4>
+              <span>按答錯次數排序</span>
+            </div>
+            <div class="report-list" id="report-mistake-list"></div>
+          </section>
+
+          <section class="report-section">
+            <div class="report-section-header">
+              <h4>適合複習</h4>
+              <span>優先練這幾個</span>
+            </div>
+            <div class="report-list" id="report-review-list"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. GAME SCREEN (遊戲遊玩中畫面) -->
+    <section id="game-screen" class="app-screen">
+      <!-- Game Top Header -->
+      <header class="game-header">
+        <button id="game-back-btn" class="circle-btn" aria-label="返回"><span aria-hidden="true">🔙</span></button>
+        <div class="game-title-center">
+          <span id="game-mode-name">看圖猜成語</span>
+        </div>
+        <div class="game-progress" id="game-progress-text">1 / 5</div>
+        <div class="game-timer" id="game-timer" style="display: none;">
+          ⏱️ <span id="timer-text">60</span>s
+        </div>
+      </header>
+
+      <!-- Game Progress Line -->
+      <div class="game-progress-line-outer">
+        <div class="game-progress-line-inner" id="game-progress-line" style="width: 20%;"></div>
+      </div>
+
+      <!-- Boss Fight UI -->
+      <div id="boss-fight-ui" class="boss-fight-ui" style="display: none;">
+        <div class="boss-sprite-container">
+          <span id="boss-sprite" class="boss-sprite">🐉</span>
+        </div>
+        <div class="boss-hp-container">
+          <div class="boss-name-label" id="boss-name-label">大魔王</div>
+          <div class="boss-hp-bar-outer">
+            <div id="boss-hp-bar-inner" class="boss-hp-bar-inner" style="width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Game Content Container -->
+      <div class="game-play-area" id="game-play-area">
+        <!-- Will be dynamically updated by JS according to selected game mode -->
+      </div>
+
+      <!-- Bottom Hint Button or Action Area -->
+      <div class="game-footer">
+        <button id="game-hint-btn" class="btn btn-secondary btn-small"><span aria-hidden="true">💡</span> 偷看提示</button>
+      </div>
+    </section>
+
+    <!-- BOTTOM TAB NAVIGATION BAR (主導覽列) -->
+    <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+      <button class="nav-item active" id="nav-mascot">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">小屋</span>
+      </button>
+      <button class="nav-item" id="nav-adventure">
+        <span class="nav-icon">🗺️</span>
+        <span class="nav-text">冒險</span>
+      </button>
+      <button class="nav-item" id="nav-library">
+        <span class="nav-icon">📚</span>
+        <span class="nav-text">圖鑑</span>
+      </button>
+      <button class="nav-item" id="nav-achievements">
+        <span class="nav-icon">🏆</span>
+        <span class="nav-text">榮譽榜</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- POPUP DIALOGS -->
+
+  <!-- Modal: Map Event Intro -->
+  <div class="modal-overlay" id="map-event-intro-modal" role="dialog" aria-modal="true">
+    <div class="modal-card celebrate-card">
+      <button class="modal-close" id="map-event-intro-close" aria-label="關閉">×</button>
+      <div class="celebrate-emoji" style="font-size:64px; margin-bottom:10px;">🎁</div>
+      <h2>幸運遭遇！</h2>
+      <p style="margin-bottom:20px; font-weight:700;">你遇到了一個神秘寶箱，快來回答一題快問快答，拿走豐富獎勵吧！</p>
+      <button class="btn btn-primary btn-large" style="width:100%;"
+        id="map-event-intro-btn-start"><span>接受挑戰</span></button>
+    </div>
+  </div>
+
+  <!-- Modal: Map Event Complete -->
+  <div class="modal-overlay" id="map-event-complete-modal" role="dialog" aria-modal="true">
+    <div class="modal-card celebrate-card">
+      <div class="celebrate-emoji" id="map-event-complete-emoji">🎉</div>
+      <h2 id="map-event-complete-title">挑戰成功！</h2>
+      <p id="map-event-complete-desc" style="font-weight:700; margin-bottom:15px;">恭喜獲得獎勵！</p>
+
+      <div class="reward-box" id="map-event-reward-box"
+        style="background:#FFF9E6; border:2px dashed #E0C870; border-radius:12px; padding:15px; margin-bottom:20px;">
+        <!-- Rewards injected here -->
+      </div>
+
+      <button class="btn btn-primary btn-large" style="width:100%;"
+        id="map-event-complete-btn-close"><span>收下獎勵</span></button>
+    </div>
+  </div>
+
+  <!-- Modal 1: Idiom Detail (成語詳情彈出視窗) -->
+  <div class="modal-overlay" id="detail-modal" role="dialog" aria-modal="true">
+    <div class="modal-card detail-modal-card">
+      <button class="modal-close" id="detail-modal-close" aria-label="關閉">×</button>
+      <div class="modal-content" id="detail-modal-body">
+        <!-- Dynamically filled -->
+      </div>
+      <div class="modal-actions" id="detail-modal-actions"></div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Round Complete Celebration (關卡完成慶祝彈出視窗) -->
+  <div class="modal-overlay" id="complete-modal" role="dialog" aria-modal="true">
+    <div class="modal-card celebrate-card">
+      <div class="celebrate-emoji">🎉</div>
+      <h2 id="complete-title">恭喜完成挑戰！</h2>
+      <p id="complete-subtitle">你做得太棒了！</p>
+
+      <!-- 星星等第展示 -->
+      <div class="level-stars-display" id="complete-stars"
+        style="display: none; justify-content: center; gap: 8px; font-size: 35.2px; margin: 0 0 16px 0; color: #FFB300;">
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+      </div>
+
+      <div class="reward-box">
+        <div class="reward-item">
+          <span class="reward-icon">⭐</span>
+          <span class="reward-val" id="reward-xp">+50 XP</span>
+        </div>
+        <div class="reward-item">
+          <span class="reward-icon">✅</span>
+          <span class="reward-val" id="reward-accuracy">100% 正確</span>
+        </div>
+        <div class="reward-item" id="reward-ticket-container" style="display: none;">
+          <span class="reward-icon">🎫</span>
+          <span class="reward-val" id="reward-ticket">+1 閃卡券</span>
+        </div>
+      </div>
+
+      <div class="rank-up-box" id="rank-up-box" style="display: none;">
+        <span class="rank-up-arrow">🌟 恭喜晉升！ 🌟</span>
+        <div class="new-rank" id="new-rank-text">晉升為：秀才</div>
+      </div>
+
+      <div class="complete-bonus-actions">
+        <button id="complete-rank-share-btn" class="btn btn-secondary btn-pop rank-share-btn" type="button" hidden>
+          <span>分享晉升</span>
+        </button>
+      </div>
+
+      <div class="complete-main-actions" style="display: flex; gap: 10px;">
+        <button id="complete-leave-btn" class="btn btn-secondary btn-large btn-pop" style="flex: 1; padding: 0;">
+          <span style="font-size: 0.9em;">回到選關</span>
+        </button>
+        <button id="complete-continue-btn" class="btn btn-primary btn-large btn-pop" style="flex: 1; padding: 0;">
+          <span style="font-size: 0.9em;">下一關</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Custom Confirm Dialog (自訂確認離開視窗) -->
+  <div class="modal-overlay" id="confirm-modal" role="dialog" aria-modal="true">
+    <div class="modal-card confirm-card">
+      <div class="confirm-emoji">⚠️</div>
+      <h2>確定要離開嗎？</h2>
+      <p>現在離開挑戰，會失去這關的所有進度喔！</p>
+      <div class="confirm-btn-group">
+        <button id="confirm-cancel-btn" class="btn btn-secondary btn-small">繼續挑戰</button>
+        <button id="confirm-ok-btn" class="btn btn-primary btn-small">確定離開</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: Time's Up Celebration (計時挑戰結束視窗) -->
+  <div class="modal-overlay" id="time-up-modal" role="dialog" aria-modal="true">
+    <div class="modal-card celebrate-card time-up-card">
+      <div class="celebrate-emoji">⏰</div>
+      <h2>時間到！</h2>
+      <p>你的極限挑戰結束囉！</p>
+
+      <div class="reward-box time-reward-box">
+        <div class="reward-item">
+          <span class="reward-icon">🎯</span>
+          <span class="reward-val">答對：<span id="time-correct-count">0</span> 題</span>
+        </div>
+        <div class="reward-item">
+          <span class="reward-icon">⭐</span>
+          <span class="reward-val" id="time-reward-xp">+0 XP</span>
+        </div>
+        <div class="reward-item" id="time-reward-ticket-container" style="display: none;">
+          <span class="reward-icon">🎫</span>
+          <span class="reward-val" id="time-reward-ticket">+1 閃卡券</span>
+        </div>
+      </div>
+
+      <div class="rank-up-box" id="time-rank-up-box" style="display: none;">
+        <span class="rank-up-arrow">🌟 恭喜晉升！ 🌟</span>
+        <div class="new-rank" id="time-new-rank-text">晉升為：秀才</div>
+      </div>
+
+      <button id="time-rank-share-btn" class="btn btn-secondary btn-large btn-pop rank-share-btn" type="button" hidden>
+        <span>分享晉升</span>
+      </button>
+
+      <button id="time-up-continue-btn" class="btn btn-primary btn-large btn-pop">
+        <span>🗺️ 回到地圖</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal 6: Card Reveal (抽卡結果/查看卡牌詳情彈出視窗) -->
+  <div class="modal-overlay" id="card-modal" role="dialog" aria-modal="true">
+    <div class="card-modal-container">
+      <div class="card-reveal-box">
+        <div class="flash-card-3d" id="flash-card-element">
+          <!-- Card Front -->
+          <div class="card-side card-front-side" id="card-front-content">
+            <!-- Filled dynamically -->
+          </div>
+          <!-- Card Back -->
+          <div class="card-side card-back-side">
+            <div class="card-back-pattern">✦</div>
+            <div class="card-back-title">成語大冒險</div>
+            <div class="card-back-sub">典藏閃卡</div>
+            <div class="card-back-hint">點一下翻開</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-modal-actions">
+        <button id="card-modal-share-btn" class="btn btn-secondary btn-large btn-pop" type="button" hidden>
+          <span>分享新卡</span>
+        </button>
+        <button id="card-modal-close-btn" class="btn btn-primary btn-large btn-pop" type="button"
+          style="display: none;">
+          <span>確定</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 7: Daily Check-in (每日簽到彈出視窗) -->
+  <div class="modal-overlay" id="checkin-modal" role="dialog" aria-modal="true">
+    <div class="modal-card checkin-card">
+      <button class="modal-close" id="checkin-modal-close" aria-label="關閉">×</button>
+      <h2
+        style="font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <span aria-hidden="true">📅</span> 每日簽到活動</h2>
+      <p class="checkin-sub">天天簽到，領取知識能量 <span aria-hidden="true">⚡</span> 餵小書蟲、閃卡券 <span aria-hidden="true">🎫</span>
+        抽卡片！<br><span
+          style="font-size: 12px; color: #FF717D; font-weight: 700; display: inline-block; margin-top: 4px;">⚠️
+          注意：連續簽到天數將會累計，若中斷未簽到，天數會重置回第 1 天喔！</span></p>
+
+      <div class="checkin-grid" id="checkin-grid">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+
+      <button id="checkin-submit-btn" class="btn btn-primary btn-large btn-pop" style="margin-top: 24px; width: 100%;">
+        <span>立即簽到</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal 3: Level Description Dialog (升級提示) -->
+  <div class="toast" id="toast-message"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "成語大冒險",
+  "short_name": "成語大冒險",
+  "description": "專為國小學生設計的成語學習遊戲 App，透過看圖猜成語、成語填空與翻牌配對，讓小朋友在玩樂中輕鬆學習！",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#FFF9F9",
+  "theme_color": "#FF8B94",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/app_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
