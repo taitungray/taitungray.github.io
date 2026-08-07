@@ -111,6 +111,7 @@ html,
 body {
   width: 100%;
   height: 100%;
+  height: 100dvh;
   overscroll-behavior: none;
 }
 
@@ -130,6 +131,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 }
 
@@ -155,6 +157,7 @@ input, textarea { -webkit-user-select: auto; user-select: auto; }
   width: 100%;
   max-width: 480px; /* 模擬手機寬度 */
   height: 100vh;
+  height: 100dvh;
   max-height: 850px;
   background: var(--bg-gradient);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
@@ -171,7 +174,9 @@ input, textarea { -webkit-user-select: auto; user-select: auto; }
 body.native-app {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   align-items: stretch;
 }
 
@@ -179,6 +184,7 @@ body.native-app .app-frame {
   width: 100vw;
   max-width: none;
   height: 100vh;
+  height: 100dvh;
   max-height: none;
   border-radius: 0;
   border: none;
@@ -190,7 +196,9 @@ body.native-app .app-frame {
   .app-frame {
     max-width: 100%;
     height: 100vh;
+    height: 100dvh;
     max-height: 100vh;
+    max-height: 100dvh;
     border-radius: 0;
     border: none;
   }
@@ -406,7 +414,7 @@ body.native-app .app-screen {
   left: 0;
   width: 100%;
   min-height: var(--bottom-nav-height);
-  height: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom, 0px));
+  height: var(--bottom-nav-height);
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -417,7 +425,7 @@ body.native-app .app-screen {
   gap: 4px;
   padding:
     8px max(10px, env(safe-area-inset-left, 0px))
-    max(8px, env(safe-area-inset-bottom, 0px))
+    max(10px, env(safe-area-inset-bottom, 0px))
     max(10px, env(safe-area-inset-right, 0px));
   z-index: 20;
 }

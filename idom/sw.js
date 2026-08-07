@@ -3,7 +3,7 @@
  * 提供離線遊玩與資源快取
  */
 
-const CACHE_NAME = "idiom-adventure-cache-v80";
+const CACHE_NAME = "idiom-adventure-cache-v81-1786083924";
 const ASSETS_TO_CACHE = [
   "index.html",
   "styles.css",
