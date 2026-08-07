@@ -240,33 +240,13 @@
             background: linear-gradient(135deg, #4338ca, #6d28d9);
         }
 
-        .btn-apk {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            color: var(--text-dark);
-            border: 2px solid var(--text-dark);
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .btn-apk:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-play .sub, .btn-web .sub, .btn-apk .sub {
+        .btn-play .sub, .btn-web .sub {
             font-size: 0.7rem;
             display: block;
             opacity: 0.85;
         }
 
-        .btn-play .main, .btn-web .main, .btn-apk .main {
+        .btn-play .main, .btn-web .main {
             font-size: 1.1rem;
             font-weight: 700;
         }
@@ -502,7 +482,7 @@
                 gap: 0.75rem;
                 box-sizing: border-box;
             }
-            .btn-web, .btn-play, .btn-apk {
+            .btn-web, .btn-play {
                 width: 100%;
                 justify-content: center;
                 box-sizing: border-box;
@@ -634,15 +614,6 @@
                         <div>
                             <span class="sub">GET IT ON</span>
                             <span class="main">Google Play</span>
-                        </div>
-                    </a>
-                    <a href="release/chengyu-1.0.32-release.apk" class="btn-apk" title="下載 APK 檔案" download>
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                        </svg>
-                        <div>
-                            <span class="sub">DOWNLOAD</span>
-                            <span class="main">APK File</span>
                         </div>
                     </a>
                 </div>
