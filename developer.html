@@ -28,11 +28,24 @@
             font-family: 'Noto Sans TC', sans-serif;
         }
 
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            position: relative;
+            touch-action: manipulation;
+        }
+
         body {
             background-image: var(--bg-gradient);
             color: var(--text-dark);
             line-height: 1.6;
-            overflow-x: hidden;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            user-drag: none;
+            max-width: 100%;
         }
 
         /* Nav */
@@ -451,8 +464,16 @@
         }
 
         @media (max-width: 600px) {
+            .shape {
+                display: none;
+            }
+            .hero-content, .hero-image {
+                animation: fadeInMobile 0.5s ease-out;
+            }
             nav {
                 padding: 0.6rem 4%;
+                width: 100%;
+                box-sizing: border-box;
             }
             .logo-text {
                 font-size: 1.2rem;
@@ -474,6 +495,9 @@
             .hero {
                 min-height: auto;
                 padding: 85px 4% 40px;
+                width: 100%;
+                box-sizing: border-box;
+                overflow: hidden;
             }
             .hero-content h1 {
                 font-size: 2rem;
@@ -483,11 +507,13 @@
             .hero-content p {
                 font-size: 1rem;
                 margin-bottom: 1.5rem;
+                word-break: break-word;
             }
             .cta-buttons {
                 flex-direction: column;
                 width: 100%;
                 gap: 0.75rem;
+                box-sizing: border-box;
             }
             .btn-web, .btn-play, .btn-apk {
                 width: 100%;
@@ -501,6 +527,7 @@
                 padding: 1.5rem 1rem;
                 border-radius: 28px;
                 aspect-ratio: auto;
+                box-sizing: border-box;
             }
             .app-mockup img {
                 width: 80px;
@@ -508,6 +535,9 @@
             }
             .features {
                 padding: 40px 4%;
+                width: 100%;
+                box-sizing: border-box;
+                overflow: hidden;
             }
             .section-header {
                 margin-bottom: 2rem;
@@ -518,10 +548,13 @@
             .features-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
+                width: 100%;
+                box-sizing: border-box;
             }
             .feature-card {
                 padding: 1.5rem 1.2rem;
                 border-radius: 16px;
+                box-sizing: border-box;
             }
             .feature-icon {
                 font-size: 2.2rem;
@@ -529,12 +562,29 @@
             }
             footer {
                 padding: 2.5rem 4% 1.5rem;
+                width: 100%;
+                box-sizing: border-box;
+                overflow: hidden;
             }
             .footer-content {
                 flex-direction: column;
                 text-align: center;
                 gap: 1.2rem;
+                width: 100%;
+                box-sizing: border-box;
             }
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @keyframes fadeInMobile {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
             .footer-links {
                 flex-wrap: wrap;
                 justify-content: center;
