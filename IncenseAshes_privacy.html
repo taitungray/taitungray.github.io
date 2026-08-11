@@ -106,47 +106,74 @@
 
     <div class="container">
         <h1>《廟埕守香》隱私權政策</h1>
-        <p>歡迎您使用《廟埕守香》（以下簡稱「本應用程式」）。我們非常重視您的隱私權，本隱私權政策旨在說明我們如何收集、使用、披露及保護您的資訊。</p>
+        <p>歡迎您使用《廟埕守香》（以下簡稱「本應用程式」）。本政策說明本機遊戲資料、選用的 Google 登入與 Firebase
+            雲端存檔，以及 Google AdMob 與 Firebase Analytics 如何處理資料。本應用程式以 Android 為主要發布平台；套件名稱為
+            <code>com.taitungray.incenseashes</code>。</p>
 
         <div class="highlight">
-            <strong>💡 核心承諾：</strong>
-            我們不會主動收集任何可用於識別個人身份的資料（例如：姓名、身分證字號、Email、電話號碼等）。本應用程式的遊戲進度（包含香火數量、解鎖進度、每日任務狀態等）皆儲存於您本地的裝置中，不涉及個人隱私外洩風險。
+            <strong>核心說明：</strong>
+            遊戲進度預設保存在裝置本機。只有玩家主動使用 Google 登入與雲端存檔時，存檔才會透過 Firebase
+            上傳並與 Google 帳號識別資料關聯。獎勵廣告只由玩家主動開啟，廣告請求固定使用非個人化設定（NPA），廣告內容分級維持
+            General。若要刪除 Google 登入建立的遊戲帳號與相關雲端資料，請參閱<a href="#data-deletion">第 4 節「帳號與資料刪除」</a>。
         </div>
 
         <h2>1. 資訊收集與使用</h2>
         <ul>
-            <li><strong>本機儲存資料（Local Storage）</strong>：為了保存您的遊戲進度、每日簽到記錄及活動狀態，本應用程式會將此類非個人資訊儲存在您裝置的本地儲存空間中。此資料僅供應用程式運作使用，不會上傳至我們的伺服器。</li>
-            <li><strong>裝置基本資訊</strong>：本應用程式在執行時可能會讀取如操作系統版本、螢幕解析度等基本系統硬體資訊，以確保遊戲畫面、文字特效與音效能順暢地適配您的裝置。此類資訊僅用於優化相容性，絕不與特定個人進行關聯。</li>
+            <li><strong>本機儲存資料（Local Storage）</strong>：遊戲進度、資源、解鎖內容、神明／法器養成、駐守庇佑快照、巡守令、庫房道具、簽到、每日任務與活動、活躍與連勝、求籤、補給、離線香油箱、遶境賽季、香舖限購、廣告每日上限與領獎紀錄等，會保存在裝置本機，供遊戲持續運作與防重複發獎。</li>
+            <li><strong>分析事件</strong>：部分活動操作會以事件形式暫存在本機（最近約 100 筆），並透過 <strong>Google Analytics／Firebase Analytics</strong> 上傳匿名或準匿名使用統計（例如首次啟動、當日活躍、開局、登入等），供營運了解活躍與留存。事件可含裝置／工作階段識別、事件名稱與遊戲相關參數；不含身分證字號或電話號碼。登入後可能以 Firebase 使用者識別碼關聯分析資料。</li>
+            <li><strong>可信時間</strong>：為保護簽到、每日限購、影片、離線與賽季等限時獎勵，本應用程式可能向公開校時服務或 Firebase／Firestore
+                取得時間參考。若偵測裝置時間異常回撥，相關限時領獎會暫停，直到重新取得可信時間。此流程不收集身分證字號或電話號碼。</li>
+            <li><strong>Google 登入</strong>：玩家可選擇以 Google 帳號登入。登入由 Google 與 Firebase Authentication
+                處理；本應用程式可取得登入所需的帳號識別資訊，例如使用者識別碼與電子郵件地址，以顯示登入狀態及關聯雲端存檔。</li>
+            <li><strong>Firebase 雲端存檔</strong>：登入後，遊戲存檔可上傳至 Google Firebase Firestore，並在裝置間下載及合併（例如關卡進度、庫存、活動狀態、庇佑鎖與掃蕩加碼紀錄等取較安全／已領聯集的合併）。雲端資料包含遊戲進度、資源、解鎖與活動紀錄，不包含身分證字號或電話號碼。</li>
+            <li><strong>極限挑戰排行榜</strong>：登入後，玩家可選擇提交極限挑戰成績與公開顯示名稱（遊戲內別名）至 Firestore 排行榜；未登入則僅保留本機個人紀錄。</li>
         </ul>
 
         <h2>2. 第三方服務與廣告政策</h2>
-        <p>為了維持本應用程式的營運與更新，我們可能會整合第三方的服務或廣告平台（如 Google AdMob 或應用程式分析工具）：</p>
+        <p>本應用程式整合 Google AdMob、Firebase Authentication、Firebase Firestore 與 Firebase Analytics（Google Analytics）：</p>
         <ul>
-            <li><strong>廣告投放與分析</strong>：若啟用廣告或分析服務，第三方服務商可能會使用 Cookie 或行動裝置廣告識別碼（如 Android 廣告 ID 或 iOS IDFA）來提供非個人化廣告或分析應用程式崩潰數據，以協助我們改善遊戲品質。</li>
+            <li><strong>獎勵廣告</strong>：廣告只會在玩家主動選擇觀看，以取得畫面標示的遊戲內獎勵時播放（例如戰敗復活、結算加碼、試煉次數補充、簽到加倍或補簽、任務／活動加倍、求籤額外、每日補給、香油箱加碼、香舖結緣禮、遶境香燈回饋等）。各入口均有每日或賽季上限；未觀看完成、取消或失敗不會發放對應額外獎勵，也不會收回玩家已取得的正常獎勵。</li>
+            <li><strong>非個人化廣告與內容分級</strong>：廣告請求固定設定為非個人化（NPA）；AdMob 初始化使用
+                <code>tagForUnderAgeOfConsent: false</code>，內容分級維持 General。Google AdMob
+                仍可能為廣告投放、防詐、頻率控制、成效衡量與法規遵循處理裝置資訊、廣告互動資訊、概略位置或行動裝置廣告識別碼；實際處理依 Google 政策與所在地法規而定。</li>
+            <li><strong>app-ads.txt</strong>：發布商授權資料會置於開發人員／正式網站根目錄的 <code>app-ads.txt</code>，供廣告驗證使用；該檔不含玩家個人資料。</li>
             <li><strong>第三方服務商隱私權政策</strong>：您可以參考主要合作第三方的隱私權政策：
                 <ul>
-                    <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Play 服務與 AdMob 隱私權政策</a></li>
+                    <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google 隱私權政策</a></li>
+                    <li><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Firebase 隱私權與安全性</a></li>
+                    <li><a href="https://support.google.com/analytics/answer/6004245" target="_blank" rel="noopener noreferrer">Google Analytics 資料隱私與安全性</a></li>
+                    <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener noreferrer">AdMob 與資料使用說明</a></li>
                 </ul>
             </li>
         </ul>
 
         <h2>3. 資料保存與安全</h2>
         <ul>
-            <li><strong>本地端優先</strong>：本應用程式的所有遊戲進度均保存在您的裝置上。若您移除本應用程式、清除應用程式資料或重設裝置，該遊戲資料將會被永久刪除，我們無法協助復原。</li>
-            <li><strong>資料安全</strong>：我們致力於保護您的資料安全，並依循業界標準的開發規範來防止未經授權的存取。</li>
+            <li><strong>本機資料</strong>：若未使用雲端存檔，移除應用程式、清除應用程式資料或重設裝置可能永久刪除本機進度。</li>
+            <li><strong>雲端資料</strong>：使用 Google 登入後，Firebase 會依 Google 的保存與安全機制處理帳號驗證及雲端存檔。登出不會自動刪除既有雲端存檔。</li>
+            <li><strong>獎勵防重</strong>：領獎、廣告上限與限購狀態會寫入本機（登入後亦可能同步至雲端），以避免重新整理、重複點擊或廣告回呼重送造成重複發獎。</li>
         </ul>
 
-        <h2>4. 本隱私權政策之修改</h2>
+        <h2 id="data-deletion">4. 帳號與資料刪除</h2>
+        <p>若您曾使用 Google 登入，可寄信至 <a href="mailto:taitungray@gmail.com?subject=%E5%BB%9F%E5%9F%95%E5%AE%88%E9%A6%99%E5%B8%B3%E8%99%9F%E5%88%AA%E9%99%A4%E7%94%B3%E8%AB%8B">taitungray@gmail.com</a>，主旨請填寫「廟埕守香帳號刪除申請」，並提供用於登入的 Google 電子郵件地址。我們可能要求您完成必要的帳號持有人驗證，以避免他人冒名刪除資料。</p>
+        <ul>
+            <li><strong>刪除範圍</strong>：完成驗證後，將刪除與該帳號關聯的 Firebase Authentication 帳號、Firestore 雲端存檔、極限挑戰排行榜資料及其他可識別的雲端遊戲紀錄，而非僅停用帳號。</li>
+            <li><strong>本機資料</strong>：儲存在裝置上的遊戲進度不會因雲端帳號刪除而自動消失；您可透過清除應用程式資料或移除應用程式刪除。</li>
+            <li><strong>分析資料</strong>：已彙總或無法再合理連結至個人的匿名分析資料，可能依 Google Firebase 的保存機制保留；仍可識別並與帳號關聯的資料將納入刪除處理。</li>
+            <li><strong>處理結果</strong>：我們會在合理期間內處理申請，並以電子郵件回覆完成結果；若依法規、安全或防詐需要保留特定資料，將另行說明保留項目、原因與期間。</li>
+        </ul>
+
+        <h2>5. 本隱私權政策之修改</h2>
         <p>我們可能會不定期更新本隱私權政策以反映法規變更或 App 功能調整。任何更新均會即時在此網頁上公佈，建議您定期閱讀。若您在政策更新後繼續使用本應用程式，即代表您同意接受修改後的政策條款。</p>
 
-        <h2>5. 聯絡我們</h2>
+        <h2>6. 聯絡我們</h2>
         <p>若您對本隱私權政策有任何疑問、建議或需要協助，歡迎透過以下方式與我們聯絡：</p>
         <ul>
             <li>電子郵件信箱：taitungray@gmail.com</li>
         </ul>
 
         <div class="footer">
-            <p>最後更新日期：2026 年 07 月 23 日</p>
+            <p>最後更新日期：2026 年 08 月 12 日（同步廣告實作與帳號刪除說明）</p>
             <p>&copy; 2026 廟埕守香 (Incense Ashes). All rights reserved.</p>
         </div>
     </div>

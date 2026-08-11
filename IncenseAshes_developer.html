@@ -3,279 +3,938 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>廟埕守香 - 台灣民俗文字塔防遊戲</title>
-    <meta name="description" content="《廟埕守香》是一款以台灣神明信仰為主題的文字塔防遊戲。化字為法器，請神明降駕，在廟埕之上佈陣退散妖邪。">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#180d08">
+    <title>廟埕守香｜台灣民俗漢字策略塔防</title>
+    <meta name="description" content="以漢字為兵、合字請神！《廟埕守香》是融合台灣民俗信仰、合成養成與策略布陣的原創塔防遊戲。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:title" content="廟埕守香｜以字成陣，請神鎮邪">
+    <meta property="og:description" content="台灣民俗信仰 × 漢字合成 × 策略塔防。守住香火，百邪莫近。">
+    <meta property="og:image" content="google-play-submission/graphics/feature-graphic-1024x500.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="assets/lobby/scene-sky.webp">
+    <link rel="preload" as="image" href="assets/tujian/mazu_standee.webp">
     <style>
         :root {
-            --primary-color: #a3221b; /* Temple Red */
-            --primary-light: #fbeceb;
-            --secondary-color: #d89f53; /* Gold */
-            --text-dark: #17110c; /* Ink */
-            --text-light: #4a3e35;
-            --bg-gradient: linear-gradient(135deg, #f5f0e6 0%, #e6dcd1 100%);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(216, 159, 83, 0.3);
-            --shadow-soft: 0 8px 32px 0 rgba(163, 34, 27, 0.07);
+            --ink: #140b07;
+            --ink-soft: #26150e;
+            --wood: #3a2216;
+            --wood-light: #5a3520;
+            --red: #a9251d;
+            --red-light: #d94a31;
+            --gold: #d7a84b;
+            --gold-bright: #ffe09a;
+            --paper: #f6e8c8;
+            --paper-deep: #dcc28c;
+            --cream: #fff5da;
+            --muted: #cbb38a;
+            --line: rgba(216, 170, 77, 0.42);
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+            --content: 1180px;
         }
 
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Serif TC', serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-image: var(--bg-gradient);
-            color: var(--text-dark);
-            line-height: 1.6;
+            margin: 0;
+            color: var(--cream);
+            background: var(--ink);
+            font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
+            line-height: 1.75;
             overflow-x: hidden;
         }
 
-        /* Nav */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(245, 240, 230, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--primary-color);
-            z-index: 1000;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        img {
+            display: block;
+            max-width: 100%;
         }
 
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary-color);
-            text-decoration: none;
+        a {
+            color: inherit;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 2000;
+            padding: 10px 16px;
+            color: var(--ink);
+            background: var(--gold-bright);
+            transform: translateY(-160%);
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+        .site-nav {
+            position: fixed;
+            inset: 0 0 auto;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(221, 174, 82, 0.28);
+            background: rgba(19, 10, 6, 0.82);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .nav-inner {
+            width: min(var(--content), calc(100% - 40px));
+            min-height: 76px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 10px;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+            justify-content: space-between;
+            gap: 28px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: var(--gold-bright);
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            box-shadow: 0 0 24px rgba(219, 163, 59, 0.24);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            align-items: center;
+            gap: clamp(20px, 3vw, 42px);
         }
 
         .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 5% 60px;
             position: relative;
-            text-align: center;
+            color: #ead6ad;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+        }
+
+        .nav-links a::after {
+            position: absolute;
+            right: 0;
+            bottom: -8px;
+            left: 0;
+            height: 2px;
+            content: "";
+            background: var(--red-light);
+            transform: scaleX(0);
+            transition: transform 180ms ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus-visible::after {
+            transform: scaleX(1);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 790px;
+            display: grid;
+            align-items: center;
+            isolation: isolate;
+            overflow: hidden;
+            border-bottom: 1px solid var(--line);
+            background: #1a0d07 url("assets/lobby/scene-sky.webp") center / cover no-repeat;
+        }
+
+        .hero::before {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            content: "";
+            background:
+                linear-gradient(90deg, rgba(14, 7, 4, 0.97) 0%, rgba(17, 8, 4, 0.88) 30%, rgba(17, 8, 4, 0.3) 58%, rgba(17, 8, 4, 0.1) 100%),
+                linear-gradient(180deg, rgba(8, 4, 2, 0.25), rgba(8, 4, 2, 0.08) 62%, rgba(8, 4, 2, 0.84));
+        }
+
+        .hero::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            height: 180px;
+            content: "";
+            background: linear-gradient(180deg, transparent, var(--ink));
+        }
+
+        .hero-temple {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: url("assets/lobby/scene-architecture.webp") center top / cover no-repeat;
+            filter: saturate(0.88) brightness(0.72);
+        }
+
+        .hero-deity {
+            position: absolute;
+            right: clamp(20px, 6vw, 110px);
+            bottom: -20px;
+            z-index: 0;
+            width: min(46vw, 690px);
+            max-height: 88%;
+            object-fit: contain;
+            object-position: right bottom;
+            filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.72));
         }
 
         .hero-content {
-            max-width: 800px;
+            position: relative;
             z-index: 2;
+            width: min(var(--content), calc(100% - 40px));
+            margin: 0 auto;
+            padding-top: 100px;
+        }
+
+        .hero-copy {
+            max-width: 610px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 14px;
+            color: var(--gold-bright);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+        }
+
+        .eyebrow::before {
+            width: 42px;
+            height: 1px;
+            content: "";
+            background: var(--gold);
         }
 
         .hero h1 {
-            font-size: 4rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
+            margin: 0;
+            font-size: clamp(4.2rem, 8vw, 7.4rem);
+            line-height: 1.05;
+            letter-spacing: 0.08em;
+            color: var(--cream);
+            text-shadow: 0 5px 0 #4c170e, 0 12px 32px rgba(0, 0, 0, 0.65);
+        }
+
+        .hero-tagline {
+            margin: 20px 0 0;
+            color: var(--gold-bright);
+            font-size: clamp(1.3rem, 2.8vw, 2rem);
             font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 0.16em;
         }
 
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--text-light);
-            margin-bottom: 40px;
+        .hero-description {
+            max-width: 580px;
+            margin: 22px 0 0;
+            color: #ecd9b6;
+            font-size: 1.08rem;
+            letter-spacing: 0.025em;
         }
 
-        .download-buttons {
+        .hero-actions {
             display: flex;
-            gap: 20px;
-            justify-content: center;
             flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 34px;
         }
 
-        .btn {
-            padding: 15px 40px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: flex;
+        .button {
+            min-height: 56px;
+            padding: 13px 28px;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            justify-content: center;
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.26);
+            transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
         }
 
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-            border: 2px solid var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            background: #871913;
+        .button:hover,
+        .button:focus-visible {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(163, 34, 27, 0.3);
+            filter: brightness(1.08);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
+        .button-primary {
+            color: #fff8dd;
+            background: #a9251d url("assets/ui/btn-claim.webp") center / cover;
         }
 
-        .btn-secondary:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
+        .button-secondary {
+            color: var(--gold-bright);
+            background: rgba(28, 15, 9, 0.74) url("assets/ui/wood-panel.webp") center / cover;
         }
 
-        /* Features Section */
-        .features {
-            padding: 100px 5%;
-            background: rgba(255,255,255,0.4);
+        .hero-facts {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            max-width: 690px;
+            margin: 46px 0 0;
+            padding: 0;
+            list-style: none;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            background: rgba(18, 9, 5, 0.48);
         }
 
-        .section-title {
+        .hero-facts li {
+            padding: 16px 18px;
             text-align: center;
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 60px;
+        }
+
+        .hero-facts li + li {
+            border-left: 1px solid var(--line);
+        }
+
+        .hero-facts strong,
+        .hero-facts span {
+            display: block;
+        }
+
+        .hero-facts strong {
+            color: var(--gold-bright);
+            font-size: 1.35rem;
+        }
+
+        .hero-facts span {
+            color: var(--muted);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+        }
+
+        .section {
+            padding: 110px 20px;
+        }
+
+        .section-inner {
+            width: min(var(--content), 100%);
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            max-width: 760px;
+            margin: 0 auto 56px;
+            text-align: center;
+        }
+
+        .section-label {
+            margin: 0 0 8px;
+            color: var(--red-light);
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            color: var(--gold-bright);
+            font-size: clamp(2.15rem, 4vw, 3.5rem);
+            line-height: 1.25;
+            letter-spacing: 0.1em;
+        }
+
+        .section-heading p:last-child {
+            margin: 18px auto 0;
+            color: var(--muted);
+            font-size: 1.03rem;
+        }
+
+        .feature-section {
+            position: relative;
+            background:
+                linear-gradient(rgba(20, 11, 7, 0.88), rgba(20, 11, 7, 0.96)),
+                url("assets/ui/wood-panel.webp") center / 620px auto repeat;
         }
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
         }
 
         .feature-card {
-            background: var(--glass-bg);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-            transition: transform 0.3s;
+            position: relative;
+            min-height: 300px;
+            padding: 30px 25px 28px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background:
+                linear-gradient(180deg, rgba(67, 38, 23, 0.66), rgba(28, 16, 10, 0.94)),
+                url("assets/ui/wood-panel.webp") center / cover;
+            box-shadow: var(--shadow);
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
+        .feature-card::before,
+        .feature-card::after {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            content: "";
+            border-color: var(--gold);
+            opacity: 0.72;
         }
 
-        .feature-icon {
-            font-size: 4rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
+        .feature-card::before {
+            top: 10px;
+            left: 10px;
+            border-top: 1px solid;
+            border-left: 1px solid;
+        }
+
+        .feature-card::after {
+            right: 10px;
+            bottom: 10px;
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+        }
+
+        .feature-glyph {
+            width: 74px;
+            height: 74px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 24px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            color: var(--gold-bright);
+            background: rgba(128, 31, 22, 0.5);
+            box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.36), 0 0 20px rgba(218, 162, 70, 0.12);
+            font-size: 2rem;
             font-weight: 900;
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-dark);
+            margin: 0 0 12px;
+            color: var(--cream);
+            font-size: 1.28rem;
+            letter-spacing: 0.06em;
         }
 
-        /* Footer */
-        footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 60px 5% 30px;
+        .feature-card p {
+            margin: 0;
+            color: #d5c09b;
+            font-size: 0.94rem;
+        }
+
+        .showcase-section {
+            color: #352014;
+            background:
+                linear-gradient(rgba(246, 232, 200, 0.93), rgba(229, 207, 158, 0.95)),
+                url("assets/ui/paper-scroll.webp") center / 720px auto repeat;
+        }
+
+        .showcase-section .section-label {
+            color: var(--red);
+        }
+
+        .showcase-section .section-heading h2 {
+            color: #5d2417;
+        }
+
+        .showcase-section .section-heading p:last-child {
+            color: #735945;
+        }
+
+        .shot-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+            align-items: start;
+        }
+
+        .shot-frame {
+            margin: 0;
+            padding: 9px;
+            border: 1px solid #9f742f;
+            border-radius: 22px;
+            background: #24140c url("assets/ui/wood-panel.webp") center / cover;
+            box-shadow: 0 22px 50px rgba(63, 35, 19, 0.23);
+        }
+
+        .shot-frame img {
+            width: 100%;
+            border-radius: 14px;
+        }
+
+        .shot-frame figcaption {
+            padding: 14px 10px 8px;
+            color: var(--gold-bright);
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .journey-section {
+            position: relative;
+            overflow: hidden;
+            background: #170c08;
+        }
+
+        .journey-section::before {
+            position: absolute;
+            inset: 0;
+            content: "";
+            background: url("assets/lobby/scene-architecture.webp") center 24% / cover no-repeat;
+            opacity: 0.11;
+            filter: sepia(0.25);
+        }
+
+        .journey-section .section-inner {
+            position: relative;
+        }
+
+        .journey-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+            gap: clamp(45px, 7vw, 100px);
+            align-items: center;
+        }
+
+        .journey-copy .section-label,
+        .journey-copy h2,
+        .journey-copy p {
+            text-align: left;
+        }
+
+        .journey-copy h2 {
+            margin: 0;
+            color: var(--gold-bright);
+            font-size: clamp(2.2rem, 4.3vw, 3.8rem);
+            line-height: 1.3;
+            letter-spacing: 0.08em;
+        }
+
+        .journey-copy > p:not(.section-label) {
+            margin: 24px 0 0;
+            color: #d5c09b;
+        }
+
+        .journey-list {
+            margin: 30px 0 0;
+            padding: 0;
+            display: grid;
+            gap: 14px;
+            list-style: none;
+        }
+
+        .journey-list li {
+            padding: 15px 18px;
+            border-left: 3px solid var(--red-light);
+            color: #ead7b2;
+            background: rgba(60, 34, 21, 0.64);
+        }
+
+        .journey-list strong {
+            color: var(--gold-bright);
+        }
+
+        .journey-visual {
+            position: relative;
+            max-width: 465px;
+            margin: 0 auto;
+        }
+
+        .journey-visual::before {
+            position: absolute;
+            inset: -22px;
+            z-index: -1;
+            content: "";
+            border: 1px solid var(--line);
+            box-shadow: 0 0 70px rgba(213, 145, 42, 0.14);
+        }
+
+        .journey-visual img {
+            border: 1px solid var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .download-section {
+            padding: 90px 20px;
+            color: #3f2016;
+            text-align: center;
+            background:
+                linear-gradient(rgba(250, 236, 204, 0.94), rgba(225, 195, 134, 0.95)),
+                url("assets/ui/paper-scroll.webp") center / 720px auto repeat;
+        }
+
+        .download-card {
+            width: min(900px, 100%);
+            margin: 0 auto;
+            padding: clamp(34px, 6vw, 62px);
+            border: 1px solid #a6762c;
+            outline: 1px solid rgba(166, 118, 44, 0.35);
+            outline-offset: -10px;
+            background: rgba(255, 247, 224, 0.54);
+            box-shadow: 0 20px 50px rgba(70, 36, 20, 0.16);
+        }
+
+        .download-card h2 {
+            margin: 0;
+            color: #6d2418;
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            letter-spacing: 0.1em;
+        }
+
+        .download-card p {
+            margin: 16px auto 28px;
+            color: #765441;
+        }
+
+        .site-footer {
+            padding: 42px 20px;
+            border-top: 1px solid var(--line);
+            color: #a9906e;
+            background: #100805;
             text-align: center;
         }
 
         .footer-links {
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 22px;
+            margin-bottom: 18px;
         }
 
         .footer-links a {
-            color: var(--secondary-color);
+            color: var(--gold-bright);
             text-decoration: none;
-            margin: 0 15px;
-            transition: color 0.3s;
         }
 
-        .footer-links a:hover {
-            color: white;
+        .site-footer p {
+            margin: 5px 0;
+            font-size: 0.85rem;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.2rem; }
-            .nav-links { display: none; }
+        @media (max-width: 980px) {
+            .hero {
+                min-height: 760px;
+                background-position: center;
+            }
+
+            .hero::before {
+                background:
+                    linear-gradient(90deg, rgba(14, 7, 4, 0.96), rgba(14, 7, 4, 0.83) 48%, rgba(14, 7, 4, 0.2)),
+                    linear-gradient(180deg, rgba(8, 4, 2, 0.16), rgba(8, 4, 2, 0.78));
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .journey-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-copy .section-label,
+            .journey-copy h2,
+            .journey-copy p {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .nav-inner {
+                width: min(100% - 28px, var(--content));
+                min-height: 66px;
+            }
+
+            .brand img {
+                width: 42px;
+                height: 42px;
+            }
+
+            .nav-links a:not(:last-child) {
+                display: none;
+            }
+
+            .nav-links a:last-child {
+                padding: 8px 12px;
+                border: 1px solid var(--line);
+            }
+
+            .hero {
+                min-height: 820px;
+                align-items: end;
+                background-position: center;
+            }
+
+            .hero-temple {
+                background-position: center top;
+            }
+
+            .hero-deity {
+                right: 50%;
+                bottom: 230px;
+                width: min(92vw, 520px);
+                height: 560px;
+                max-height: none;
+                transform: translateX(50%);
+            }
+
+            .hero::before {
+                background:
+                    linear-gradient(180deg, rgba(12, 6, 3, 0.12) 0%, rgba(12, 6, 3, 0.32) 30%, rgba(12, 6, 3, 0.93) 60%, #140b07 100%),
+                    linear-gradient(90deg, rgba(8, 4, 2, 0.45), rgba(8, 4, 2, 0.02));
+            }
+
+            .hero-content {
+                width: min(100% - 30px, var(--content));
+                padding: 310px 0 45px;
+            }
+
+            .hero-copy {
+                max-width: none;
+                text-align: center;
+            }
+
+            .eyebrow {
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: clamp(3.2rem, 16vw, 5.2rem);
+            }
+
+            .hero-description {
+                font-size: 0.98rem;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .hero-facts {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero-facts li:nth-child(3) {
+                border-left: 0;
+                border-top: 1px solid var(--line);
+            }
+
+            .hero-facts li:nth-child(4) {
+                border-top: 1px solid var(--line);
+            }
+
+            .section {
+                padding: 78px 16px;
+            }
+
+            .section-heading {
+                margin-bottom: 38px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                min-height: auto;
+            }
+
+            .shot-gallery {
+                grid-template-columns: none;
+                grid-auto-flow: column;
+                grid-auto-columns: minmax(278px, 78vw);
+                gap: 16px;
+                overflow-x: auto;
+                padding: 6px 16px 24px;
+                margin-right: -16px;
+                margin-left: -16px;
+                scroll-snap-type: x mandatory;
+                scrollbar-color: #9f742f transparent;
+            }
+
+            .shot-frame {
+                scroll-snap-align: center;
+            }
+
+            .journey-visual {
+                width: calc(100% - 24px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
 
-    <nav>
-        <a href="#" class="logo-text">廟埕守香</a>
-        <div class="nav-links">
-            <a href="#features">遊戲特色</a>
-            <a href="privacy.html">隱私權政策</a>
+    <nav class="site-nav" aria-label="主要導覽">
+        <div class="nav-inner">
+            <a class="brand" href="#top" aria-label="廟埕守香首頁">
+                <img src="google-play-submission/graphics/app-icon-512.png" alt="" width="48" height="48">
+                <span>廟埕守香</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">遊戲特色</a>
+                <a href="#screenshots">實機畫面</a>
+                <a href="IncenseAshes_privacy.html">隱私權政策</a>
+                <a href="#download">立即下載</a>
+            </div>
         </div>
     </nav>
 
-    <section class="hero">
+    <header id="top" class="hero">
+        <div class="hero-temple" aria-hidden="true"></div>
+        <img class="hero-deity" src="assets/tujian/mazu_standee.webp" alt="" aria-hidden="true">
         <div class="hero-content">
-            <h1>文字化法器，請令守香火</h1>
-            <p>獨創「純漢字」塔防遊戲！化字為法器，請神明降駕，在廟埕之上佈陣退散十二波妖邪。</p>
-            <div class="download-buttons">
-                <a href="#" class="btn btn-primary">在 App Store 下載</a>
-                <a href="#" class="btn btn-secondary">在 Google Play 下載</a>
+            <div class="hero-copy">
+                <p class="eyebrow">台灣民俗漢字策略塔防</p>
+                <h1>廟埕守香</h1>
+                <p class="hero-tagline">以字成陣・合字請神</p>
+                <p class="hero-description">請出法器、布置漢字、合成升級，讓神明字根彼此相鄰、組字顯靈。守住廟埕香火，迎戰步步逼近的百邪群魔。</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="https://play.google.com/store/apps/details?id=com.taitungray.incenseashes" target="_blank" rel="noopener noreferrer">前往 Google Play</a>
+                    <a class="button button-secondary" href="#screenshots">觀看實機畫面</a>
+                </div>
+                <ul class="hero-facts" aria-label="遊戲內容摘要">
+                    <li><strong>10</strong><span>主線章節</span></li>
+                    <li><strong>100</strong><span>策略關卡</span></li>
+                    <li><strong>10</strong><span>特色法器</span></li>
+                    <li><strong>10</strong><span>守護神明</span></li>
+                </ul>
             </div>
         </div>
-    </section>
+    </header>
 
-    <section id="features" class="features">
-        <h2 class="section-title">核心特色</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon">劍</div>
-                <h3>漢字即是法器</h3>
-                <p>遊戲中所有的作戰單位都是「中文字」。符、鏡、鈴、劍、印各有獨特的攻擊模式與部首拆字特效。</p>
+    <main id="main-content">
+        <section id="features" class="section feature-section">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="section-label">CORE FEATURES</p>
+                    <h2>漢字，就是你的陣法</h2>
+                    <p>每一個字都有位置、射程與使命。看懂敵勢、調整隊形，在有限香火中做出關鍵選擇。</p>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <div class="feature-glyph" aria-hidden="true">陣</div>
+                        <h3>拖曳布陣</h3>
+                        <p>把法器拖上六乘八棋盤，依道路與敵人特性安排遠近攻勢，隨戰況自由交換位置。</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-glyph" aria-hidden="true">合</div>
+                        <h3>同字合成</h3>
+                        <p>相同法器與等級可以合成強化。留下戰力或騰出空間，每一步取捨都會改變戰局。</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-glyph" aria-hidden="true">神</div>
+                        <h3>合字請神</h3>
+                        <p>讓「媽＋祖」、「關＋公」、「觀＋音」等字根相鄰，請神顯靈並發動獨特能力。</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-glyph" aria-hidden="true">守</div>
+                        <h3>百關守香</h3>
+                        <p>十章主線、二十波極限挑戰與資源試煉，面對急襲、重甲、返魂與魔王壓境。</p>
+                    </article>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">媽祖</div>
-                <h3>神明降駕護持</h3>
-                <p>將「媽」與「祖」相鄰放置，即可請出神明降臨！集齊對應字元解鎖城隍、觀音、關公與王爺神威。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">合</div>
-                <h3>合成策略佈陣</h3>
-                <p>同字同等級可拖曳合成升級，最高五級。妥善規劃有限的香火與香路佈陣，抵禦山魈與黑煞魔王。</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
+        <section id="screenshots" class="section showcase-section">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="section-label">GAMEPLAY</p>
+                    <h2>從廟埕日常，到百邪壓境</h2>
+                    <p>迎香入廟、培養神明、組成法器陣線，在熟悉的台灣廟埕氛圍中展開一場文字守城戰。</p>
+                </div>
+                <div class="shot-gallery" aria-label="遊戲實機畫面">
+                    <figure class="shot-frame">
+                        <img src="google-play-submission/graphics/phone-screenshots/01-gameplay.png" alt="戰鬥棋盤中以漢字法器布陣並迎戰妖魔" loading="lazy">
+                        <figcaption>漢字布陣・合字請神</figcaption>
+                    </figure>
+                    <figure class="shot-frame">
+                        <img src="google-play-submission/graphics/phone-screenshots/02-temple-lobby.png" alt="媽祖駐守的廟埕主畫面" loading="lazy">
+                        <figcaption>神明駐守・庇佑廟埕</figcaption>
+                    </figure>
+                    <figure class="shot-frame">
+                        <img src="google-play-submission/graphics/phone-screenshots/03-game-modes.png" alt="主線關卡、極限挑戰與試煉模式選擇畫面" loading="lazy">
+                        <figcaption>多種模式・迎戰群邪</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section journey-section">
+            <div class="section-inner journey-layout">
+                <div class="journey-copy">
+                    <p class="section-label">YOUR TEMPLE</p>
+                    <h2>香火不滅，<br>廟埕不失</h2>
+                    <p>戰鬥之外，持續收錄與培養法器、神明及妖魔圖鑑。選擇駐守神明與上陣隊伍，打造專屬於你的守香陣容。</p>
+                    <ul class="journey-list">
+                        <li><strong>主線十章：</strong>一百道關卡與章節魔王等你挑戰</li>
+                        <li><strong>神明養成：</strong>升級、突破與修行，解鎖更多庇佑</li>
+                        <li><strong>廟埕日常：</strong>求籤、遶境、香油箱與每日課業</li>
+                    </ul>
+                </div>
+                <div class="journey-visual">
+                    <img src="google-play-submission/graphics/phone-screenshots/04-collection.png" alt="神明、法器與妖魔圖鑑收藏及養成畫面" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="download-section">
+            <div class="download-card">
+                <p class="section-label">BEGIN YOUR WATCH</p>
+                <h2>現在，入廟鎮守</h2>
+                <p>以漢字為兵、以香火為念。準備好迎戰百邪，守住最後一縷香火。</p>
+                <a class="button button-primary" href="https://play.google.com/store/apps/details?id=com.taitungray.incenseashes" target="_blank" rel="noopener noreferrer">前往 Google Play</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
         <div class="footer-links">
-            <a href="privacy.html">隱私權政策</a>
+            <a href="IncenseAshes_privacy.html">隱私權政策</a>
+            <a href="IncenseAshes_privacy.html#data-deletion">帳號與資料刪除</a>
             <a href="mailto:taitungray@gmail.com">聯絡我們</a>
         </div>
         <p>&copy; 2026 廟埕守香 (Incense Ashes). All rights reserved.</p>
+        <p>Android 套件：com.taitungray.incenseashes ・ 官網更新：2026-08-12</p>
     </footer>
-
 </body>
 </html>
