@@ -1,0 +1,69 @@
+{
+  "size": 48,
+  "icons": [
+    {
+      "id": "weapon-twin",
+      "path": "equipment-weapon-twin-v1.webp"
+    },
+    {
+      "id": "weapon-guandao",
+      "path": "equipment-weapon-guandao-v1.webp"
+    },
+    {
+      "id": "weapon-serpent",
+      "path": "equipment-weapon-serpent-v1.webp"
+    },
+    {
+      "id": "weapon-lance",
+      "path": "equipment-weapon-lance-v1.webp"
+    },
+    {
+      "id": "weapon-bow",
+      "path": "equipment-weapon-bow-v1.webp"
+    },
+    {
+      "id": "weapon-fan",
+      "path": "equipment-weapon-fan-v1.webp"
+    },
+    {
+      "id": "weapon-rings",
+      "path": "equipment-weapon-rings-v1.webp"
+    },
+    {
+      "id": "weapon-halberd",
+      "path": "equipment-weapon-halberd-v1.webp"
+    },
+    {
+      "id": "armor-oath",
+      "path": "equipment-armor-oath-v1.webp"
+    },
+    {
+      "id": "armor-iron",
+      "path": "equipment-armor-iron-v1.webp"
+    },
+    {
+      "id": "armor-silk",
+      "path": "equipment-armor-silk-v1.webp"
+    },
+    {
+      "id": "armor-crimson",
+      "path": "equipment-armor-crimson-v1.webp"
+    },
+    {
+      "id": "accessory-jade",
+      "path": "equipment-accessory-jade-v1.webp"
+    },
+    {
+      "id": "accessory-dragon",
+      "path": "equipment-accessory-dragon-v1.webp"
+    },
+    {
+      "id": "accessory-war",
+      "path": "equipment-accessory-war-v1.webp"
+    },
+    {
+      "id": "accessory-feather",
+      "path": "equipment-accessory-feather-v1.webp"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "size": 96,
+  "grid": [
+    4,
+    4
+  ],
+  "interpolation": "nearest",
+  "tileable": true,
+  "tiles": [
+    {
+      "id": 0,
+      "path": "assets/backgrounds/terrain-tile-0-v1.webp"
+    },
+    {
+      "id": 1,
+      "path": "assets/backgrounds/terrain-tile-1-v1.webp"
+    },
+    {
+      "id": 2,
+      "path": "assets/backgrounds/terrain-tile-2-v1.webp"
+    },
+    {
+      "id": 3,
+      "path": "assets/backgrounds/terrain-tile-3-v1.webp"
+    },
+    {
+      "id": 4,
+      "path": "assets/backgrounds/terrain-tile-4-v1.webp"
+    },
+    {
+      "id": 5,
+      "path": "assets/backgrounds/terrain-tile-5-v1.webp"
+    },
+    {
+      "id": 6,
+      "path": "assets/backgrounds/terrain-tile-6-v1.webp"
+    },
+    {
+      "id": 7,
+      "path": "assets/backgrounds/terrain-tile-7-v1.webp"
+    },
+    {
+      "id": 8,
+      "path": "assets/backgrounds/terrain-tile-8-v1.webp"
+    },
+    {
+      "id": 9,
+      "path": "assets/backgrounds/terrain-tile-9-v1.webp"
+    },
+    {
+      "id": 10,
+      "path": "assets/backgrounds/terrain-tile-10-v1.webp"
+    },
+    {
+      "id": 11,
+      "path": "assets/backgrounds/terrain-tile-11-v1.webp"
+    },
+    {
+      "id": 12,
+      "path": "assets/backgrounds/terrain-tile-12-v1.webp"
+    },
+    {
+      "id": 13,
+      "path": "assets/backgrounds/terrain-tile-13-v1.webp"
+    },
+    {
+      "id": 14,
+      "path": "assets/backgrounds/terrain-tile-14-v1.webp"
+    },
+    {
+      "id": 15,
+      "path": "assets/backgrounds/terrain-tile-15-v1.webp"
+    }
+  ]
+}

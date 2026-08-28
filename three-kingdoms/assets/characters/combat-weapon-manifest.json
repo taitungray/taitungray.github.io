@@ -1,0 +1,18 @@
+{
+  "type": "combat-weapon-sprite",
+  "version": 2,
+  "canvas": { "width": 64, "height": 64 },
+  "anchor": [32, 54],
+  "rendering": { "alpha": "transparent", "interpolation": "nearest", "inventoryCardArt": false },
+  "assets": [
+    { "id": "sword", "path": "assets/characters/combat-weapon-sword-v2.webp", "anchor": [32, 54] },
+    { "id": "twin", "path": "assets/characters/combat-weapon-twin-v2.webp", "anchor": [30, 52] },
+    { "id": "guandao", "path": "assets/characters/combat-weapon-guandao-v2.webp", "anchor": [28, 56] },
+    { "id": "serpent", "path": "assets/characters/combat-weapon-serpent-v2.webp", "anchor": [28, 56] },
+    { "id": "lance", "path": "assets/characters/combat-weapon-lance-v2.webp", "anchor": [32, 58] },
+    { "id": "bow", "path": "assets/characters/combat-weapon-bow-v2.webp", "anchor": [22, 40] },
+    { "id": "fan", "path": "assets/characters/combat-weapon-fan-v2.webp", "anchor": [36, 48] },
+    { "id": "rings", "path": "assets/characters/combat-weapon-rings-v2.webp", "anchor": [36, 46] },
+    { "id": "halberd", "path": "assets/characters/combat-weapon-halberd-v2.webp", "anchor": [26, 56] }
+  ]
+}

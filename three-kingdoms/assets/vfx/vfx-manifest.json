@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "size": 64,
+  "grid": [
+    4,
+    4
+  ],
+  "interpolation": "nearest",
+  "assets": [
+    {
+      "id": 0,
+      "path": "assets/vfx/vfx-0-v1.webp"
+    },
+    {
+      "id": 1,
+      "path": "assets/vfx/vfx-1-v1.webp"
+    },
+    {
+      "id": 2,
+      "path": "assets/vfx/vfx-2-v1.webp"
+    },
+    {
+      "id": 3,
+      "path": "assets/vfx/vfx-3-v1.webp"
+    },
+    {
+      "id": 4,
+      "path": "assets/vfx/vfx-4-v1.webp"
+    },
+    {
+      "id": 5,
+      "path": "assets/vfx/vfx-5-v1.webp"
+    },
+    {
+      "id": 6,
+      "path": "assets/vfx/vfx-6-v1.webp"
+    },
+    {
+      "id": 7,
+      "path": "assets/vfx/vfx-7-v1.webp"
+    },
+    {
+      "id": 8,
+      "path": "assets/vfx/vfx-8-v1.webp"
+    },
+    {
+      "id": 9,
+      "path": "assets/vfx/vfx-9-v1.webp"
+    },
+    {
+      "id": 10,
+      "path": "assets/vfx/vfx-10-v1.webp"
+    },
+    {
+      "id": 11,
+      "path": "assets/vfx/vfx-11-v1.webp"
+    },
+    {
+      "id": 12,
+      "path": "assets/vfx/vfx-12-v1.webp"
+    },
+    {
+      "id": 13,
+      "path": "assets/vfx/vfx-13-v1.webp"
+    },
+    {
+      "id": 14,
+      "path": "assets/vfx/vfx-14-v1.webp"
+    },
+    {
+      "id": 15,
+      "path": "assets/vfx/vfx-15-v1.webp"
+    }
+  ]
+}

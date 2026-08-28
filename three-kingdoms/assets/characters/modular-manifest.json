@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "rendering": {
+    "pixelRatio": 1,
+    "interpolation": "nearest",
+    "anchor": "foot-center",
+    "fallback": "procedural-canvas"
+  },
+  "portraits": {
+    "size": 64,
+    "directory": "assets/characters",
+    "generatedFamilies": [
+      "liubei",
+      "guanyu",
+      "zhangfei",
+      "zhaoyun",
+      "huangzhong",
+      "caocao",
+      "sunshang",
+      "xiahoudun",
+      "zhugeliang",
+      "diaochan",
+      "lubu"
+    ],
+    "generatedIds": [
+      "liubei",
+      "guanyu",
+      "zhangfei",
+      "zhaoyun",
+      "huangzhong",
+      "sunshang",
+      "caocao",
+      "xiahoudun",
+      "zhugeliang",
+      "diaochan",
+      "lubu",
+      "machao",
+      "dianwei",
+      "pangtong",
+      "zhouyu",
+      "lusu",
+      "luxun",
+      "xuhuang",
+      "weiyan",
+      "ganning",
+      "taishici",
+      "zhangliao",
+      "zhanghe",
+      "jiangwei",
+      "simayi",
+      "yuanshao",
+      "gongsunzan",
+      "xunyu",
+      "zhenji",
+      "guojia",
+      "yujin",
+      "lejin",
+      "caoren",
+      "xiahouyuan",
+      "guanping",
+      "guanxing",
+      "zhangbao",
+      "zhangliang",
+      "huanggai",
+      "handang",
+      "chengpu",
+      "zhuran",
+      "panzhang",
+      "madai",
+      "fazheng",
+      "menghuo",
+      "zhurong",
+      "daqiao",
+      "xiaoqiao",
+      "locked"
+    ]
+  },
+  "combatParts": {
+    "body": {
+      "size": [
+        32,
+        38
+      ],
+      "anchor": [
+        16,
+        38
+      ],
+      "source": "sprite-assets",
+      "pathTemplate": "assets/characters/combat-body-{id}-v1.webp",
+      "generatedFamilies": [
+        "liubei",
+        "guanyu",
+        "zhangfei",
+        "zhaoyun",
+        "huangzhong",
+        "sunshang",
+        "caocao",
+        "xiahoudun",
+        "zhugeliang",
+        "diaochan",
+        "lubu",
+        "locked"
+      ],
+      "generatedIds": [
+        "liubei",
+        "guanyu",
+        "zhangfei",
+        "zhaoyun",
+        "huangzhong",
+        "sunshang",
+        "caocao",
+        "xiahoudun",
+        "zhugeliang",
+        "diaochan",
+        "lubu",
+        "machao",
+        "dianwei",
+        "pangtong",
+        "zhouyu",
+        "lusu",
+        "luxun",
+        "xuhuang",
+        "weiyan",
+        "ganning",
+        "taishici",
+        "zhangliao",
+        "zhanghe",
+        "jiangwei",
+        "simayi",
+        "yuanshao",
+        "gongsunzan",
+        "xunyu",
+        "zhenji",
+        "guojia",
+        "yujin",
+        "lejin",
+        "caoren",
+        "xiahouyuan",
+        "guanping",
+        "guanxing",
+        "zhangbao",
+        "zhangliang",
+        "huanggai",
+        "handang",
+        "chengpu",
+        "zhuran",
+        "panzhang",
+        "madai",
+        "fazheng",
+        "menghuo",
+        "zhurong",
+        "daqiao",
+        "xiaoqiao",
+        "locked"
+      ]
+    },
+    "weapon": {
+      "size": [
+        16,
+        32
+      ],
+      "anchor": [
+        8,
+        28
+      ],
+      "source": "equipment-icon-assets",
+      "pathTemplate": "assets/characters/equipment-weapon-{id}-v1.webp",
+      "generatedIcons": [
+        "twin",
+        "guandao",
+        "serpent",
+        "lance",
+        "bow",
+        "fan",
+        "rings",
+        "halberd"
+      ]
+    },
+    "mount": {
+      "size": [
+        48,
+        32
+      ],
+      "anchor": [
+        24,
+        30
+      ],
+      "source": "sprite-assets",
+      "pathTemplate": "assets/characters/mount-{id}-v1.webp",
+      "generatedIds": [
+        "foot",
+        "grey",
+        "redhare",
+        "jadelion",
+        "whitehorse",
+        "blackhorse",
+        "war-elephant",
+        "cloud-deer",
+        "hex-mark",
+        "thunder-horse",
+        "armored-rhino",
+        "crimson-deer",
+        "flying-horse",
+        "black-panther"
+      ]
+    }
+  },
+  "bosses": {
+    "source": "sprite-assets",
+    "pathTemplate": "assets/characters/boss-{id}-v1.webp",
+    "generatedIds": [
+      "zhangjiao",
+      "dongzhuo",
+      "lvbu",
+      "menghuo"
+    ],
+    "aliases": {
+      "simayi": "zhangjiao",
+      "yuanshao": "dongzhuo",
+      "zhurong": "menghuo"
+    }
+  }
+}
