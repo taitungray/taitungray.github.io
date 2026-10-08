@@ -10,7 +10,10 @@
     <meta property="og:locale" content="zh_TW">
     <meta property="og:title" content="廟埕守香｜以字成陣，請神鎮邪">
     <meta property="og:description" content="台灣民俗信仰 × 漢字合成 × 策略塔防。守住香火，百邪莫近。">
-    <meta property="og:image" content="incenseashes-site-assets/feature-graphic-v2-1024x500.webp">
+    <meta property="og:image" content="https://taitungray.github.io/incenseashes-site-assets/feature-graphic-v2-1024x500.webp">
+    <meta property="og:image:alt" content="廟埕守香－台灣民俗漢字策略塔防遊戲">
+    <meta property="og:site_name" content="廟埕守香 Incense Ashes">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
@@ -577,6 +580,37 @@
             box-shadow: var(--shadow);
         }
 
+
+        /* Search-friendly FAQ: visible answers use the same palette as the existing site. */
+        .faq-section {
+            background: linear-gradient(180deg, #1a0e09, #25150e);
+            border-top: 1px solid var(--line);
+        }
+
+        .faq-list {
+            max-width: 920px;
+            margin: 0 auto;
+            display: grid;
+            gap: 16px;
+        }
+
+        .faq-item {
+            padding: 24px 28px;
+            border: 1px solid var(--line);
+            background: rgba(76, 45, 27, 0.4);
+        }
+
+        .faq-item h3 {
+            margin: 0 0 9px;
+            color: var(--gold-bright);
+            font-size: 1.12rem;
+        }
+
+        .faq-item p {
+            margin: 0;
+            color: #e3ccaa;
+        }
+
         .download-section {
             padding: 90px 20px;
             color: #3f2016;
@@ -800,6 +834,44 @@
             }
         }
     </style>
+
+	<link rel="canonical"
+	 href="https://taitungray.github.io/IncenseAshes_developer.html">
+
+	<meta property="og:url"
+	 content="https://taitungray.github.io/IncenseAshes_developer.html">
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": ["VideoGame", "MobileApplication"],
+	  "name": "廟埕守香",
+	  "alternateName": "Incense Ashes",
+	  "description": "融合台灣民俗信仰、漢字合成與策略塔防的手機遊戲。運用漢字法器布陣、同字合成及合字請神，召喚媽祖、關公、觀音等神明守護廟埕。",
+	  "applicationCategory": "GameApplication",
+	  "genre": [
+		"策略塔防",
+		"漢字合成",
+		"台灣民俗",
+		"Strategy",
+		"Tower Defense"
+	  ],
+	  "operatingSystem": "Android",
+	  "inLanguage": "zh-Hant",
+	  "url": "https://taitungray.github.io/IncenseAshes_developer.html",
+	  "image": "https://taitungray.github.io/incenseashes-site-assets/feature-graphic-v2-1024x500.webp",
+	  "downloadUrl": "https://play.google.com/store/apps/details?id=com.taitungray.incenseashes",
+	  "sameAs": [
+		"https://play.google.com/store/apps/details?id=com.taitungray.incenseashes"
+	  ],
+	  "offers": {
+		"@type": "Offer",
+		"price": "0",
+		"priceCurrency": "TWD"
+	  }
+	}
+	</script>
+	
 </head>
 <body>
     <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -925,6 +997,34 @@
                 </div>
                 <div class="journey-visual">
                     <img src="incenseashes-site-assets/screenshots/04-collection-v2.webp" alt="神明、法器與妖魔圖鑑收藏及養成畫面" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section faq-section" aria-labelledby="faq-heading">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <p class="section-label">FREQUENTLY ASKED QUESTIONS</p>
+                    <h2 id="faq-heading">常見問題</h2>
+                    <p>認識《廟埕守香》的漢字合成、請神玩法與塔防挑戰。</p>
+                </div>
+                <div class="faq-list">
+                    <article class="faq-item">
+                        <h3>《廟埕守香》是什麼類型的遊戲？</h3>
+                        <p>《廟埕守香》（Incense Ashes）是結合台灣民俗、漢字合成與策略塔防的 Android 手機遊戲。玩家在六乘八棋盤安排法器，守護廟埕香火。</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3>合字請神是什麼玩法？</h3>
+                        <p>將「媽＋祖」、「關＋公」或「觀＋音」等神明字根相鄰排列，就能請神顯靈並發動獨特能力。相同法器與等級也能合成強化。</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3>遊戲有哪些關卡和挑戰？</h3>
+                        <p>遊戲包含十章主線、共一百道策略關卡，以及二十波極限挑戰與資源試煉，並設有神明、法器和妖魔圖鑑養成內容。</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3>《廟埕守香》要去哪裡下載？</h3>
+                        <p>Android 玩家可透過 <a href="https://play.google.com/store/apps/details?id=com.taitungray.incenseashes" target="_blank" rel="noopener noreferrer">Google Play《廟埕守香》商店頁面</a>查看遊戲與下載資訊。</p>
+                    </article>
                 </div>
             </div>
         </section>
