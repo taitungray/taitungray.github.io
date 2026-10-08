@@ -1,707 +1,278 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>成語大冒險 - 專為國小生設計的互動成語遊戲</title>
-    <meta name="description" content="《成語大冒險》專為國小學生設計的互動式成語學習遊戲！透過 3D 黏土卡通風格插圖與多種挑戰模式，讓小朋友在玩樂中輕鬆掌握成語。">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #d56f63;
-            --primary-light: #fcebe9;
-            --primary-dark: #b85a4f;
-            --secondary-color: #f3a683;
-            --text-dark: #2d3436;
-            --text-light: #636e72;
-            --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-            --shadow-hover: 0 12px 40px 0 rgba(213, 111, 99, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        html, body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden !important;
-            position: relative;
-            touch-action: pan-y;
-        }
-
-        body {
-            background-image: var(--bg-gradient);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        img {
-            -webkit-user-drag: none;
-            user-drag: none;
-            max-width: 100%;
-        }
-
-        /* Nav */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-text img {
-            width: 40px;
-            border-radius: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 5% 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Abstract shapes background wrapper */
-        .shapes-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .shape {
-            position: absolute;
-            filter: blur(50px);
-            opacity: 0.6;
-            animation: float 8s infinite ease-in-out;
-        }
-        
-        .shape-1 {
-            background: var(--primary-color);
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            top: 10%;
-            left: -5%;
-        }
-        
-        .shape-2 {
-            background: var(--secondary-color);
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            bottom: -10%;
-            right: -10%;
-            animation-delay: -4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-30px) scale(1.05); }
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-            width: 100%;
-        }
-
-        .hero-content {
-            flex: 1;
-            animation: slideInLeft 1s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--primary-light);
-            color: var(--primary-color);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(213, 111, 99, 0.15);
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-dark), var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            margin-bottom: 2.5rem;
-            max-width: 500px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-play {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--text-dark);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .btn-play:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .btn-web {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
-        }
-
-        .btn-web:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.55);
-            background: linear-gradient(135deg, #4338ca, #6d28d9);
-        }
-
-        .btn-play .sub, .btn-web .sub {
-            font-size: 0.7rem;
-            display: block;
-            opacity: 0.85;
-        }
-
-        .btn-play .main, .btn-web .main {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            animation: slideInRight 1s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .app-mockup {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 1;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            box-shadow: var(--shadow-soft);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .app-mockup:hover {
-            transform: translateY(-10px) rotate(2deg);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .app-mockup img {
-            width: 60%;
-            border-radius: 25%;
-            box-shadow: 0 20px 40px rgba(213, 111, 99, 0.3);
-            margin-bottom: 2rem;
-            transition: transform 0.3s;
-        }
-        
-        .app-mockup:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 100px 5%;
-            background: white;
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: var(--bg-gradient);
-            padding: 2.5rem;
-            border-radius: 24px;
-            text-align: center;
-            transition: all 0.3s;
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--primary-color);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-            transform-origin: left;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-
-        .feature-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        /* Footer */
-        footer {
-            background: #fff;
-            padding: 4rem 5% 2rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary-color);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .copyright {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .hero-container {
-                flex-direction: column;
-                text-align: center;
-                gap: 2rem;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a2d">
+  <title>Taitungray 遊戲作品集｜成語大冒險・廟埕守香</title>
+  <meta name="description" content="探索 Taitungray 的原創手機遊戲與學習應用：《成語大冒險》透過 13 種趣味挑戰學習成語；《廟埕守香》融合台灣民俗、漢字合成與策略塔防。查看介紹並前往 Google Play 下載。">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://taitungray.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="Taitungray 遊戲作品集">
+  <meta property="og:title" content="Taitungray 遊戲作品集｜成語大冒險・廟埕守香">
+  <meta property="og:description" content="從趣味成語學習到台灣民俗漢字塔防，探索兩款各具特色的 Android 遊戲。">
+  <meta property="og:url" content="https://taitungray.github.io/">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://taitungray.github.io/#website",
+        "name": "Taitungray 遊戲作品集",
+        "url": "https://taitungray.github.io/",
+        "inLanguage": "zh-Hant",
+        "description": "成語學習與台灣民俗策略遊戲的官方作品入口。"
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://taitungray.github.io/#webpage",
+        "name": "Taitungray 遊戲作品集｜成語大冒險・廟埕守香",
+        "url": "https://taitungray.github.io/",
+        "isPartOf": {"@id": "https://taitungray.github.io/#website"},
+        "inLanguage": "zh-Hant",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem", "position": 1,
+              "name": "成語大冒險｜國小成語學習遊戲",
+              "url": "https://taitungray.github.io/developer.html"
+            },
+            {
+              "@type": "ListItem", "position": 2,
+              "name": "廟埕守香｜台灣民俗漢字策略塔防",
+              "url": "https://taitungray.github.io/IncenseAshes_developer.html"
             }
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            .hero-content p {
-                margin: 0 auto 2rem;
-            }
-            .cta-buttons {
-                justify-content: center;
-            }
-            .app-mockup {
-                max-width: 300px;
-            }
+          ]
         }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #162338;
+      --muted: #5f6d7e;
+      --border: #e4eaf0;
+      --white: #fff;
+      --shell: #f7f9fc;
+      --accent: #e9b25d;
+      --radius: 26px;
+      --shadow: 0 20px 56px rgba(21, 37, 55, .08);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--shell); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif; line-height: 1.7; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    a:focus-visible { outline: 3px solid #e5a13b; outline-offset: 4px; }
+    .container { width: min(1150px, calc(100% - 44px)); margin-inline: auto; }
+    .skip { position: absolute; top: -80px; left: 20px; z-index: 100; background: #fff; color: #14233a; padding: 12px 18px; border-radius: 10px; }
+    .skip:focus { top: 16px; }
+    .topbar { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 820; text-decoration: none; font-size: 20px; letter-spacing: -.4px; }
+    .brand-mark { position: relative; width: 35px; height: 35px; background: #18273e; border-radius: 11px; flex: 0 0 auto; }
+    .brand-mark::before, .brand-mark::after { content: ""; position: absolute; border-radius: 4px; transform: rotate(-18deg); }
+    .brand-mark::before { width: 13px; height: 19px; left: 8px; top: 8px; background: #f7c979; }
+    .brand-mark::after { width: 8px; height: 13px; left: 19px; top: 6px; background: #90d6c6; }
+    .nav { display: flex; align-items: center; gap: 30px; }
+    .nav a { font-size: 14px; font-weight: 650; text-decoration: none; color: #40516a; }
+    .nav a:hover, .footer-links a:hover { color: #bd7025; }
+    .nav .contact { border: 1px solid #d8e0e8; padding: 9px 17px; border-radius: 99px; background: #fff; }
 
-        @media (max-width: 600px) {
-            .shapes-container {
-                display: none;
-            }
-            .hero-content, .hero-image {
-                animation: fadeInMobile 0.5s ease-out;
-            }
-            nav {
-                padding: 0.6rem 4%;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .logo-text {
-                font-size: 1.2rem;
-                gap: 8px;
-            }
-            .logo-text img {
-                width: 32px;
-            }
-            .nav-links {
-                display: none;
-            }
-            .hero {
-                min-height: auto;
-                padding: 85px 4% 40px;
-                width: 100%;
-                box-sizing: border-box;
-                overflow: hidden;
-            }
-            .hero-content h1 {
-                font-size: 2rem;
-                line-height: 1.35;
-                margin-bottom: 1rem;
-            }
-            .hero-content p {
-                font-size: 1rem;
-                margin-bottom: 1.5rem;
-                word-break: break-word;
-            }
-            .cta-buttons {
-                flex-direction: column;
-                width: 100%;
-                gap: 0.75rem;
-                box-sizing: border-box;
-            }
-            .btn-web, .btn-play {
-                width: 100%;
-                justify-content: center;
-                box-sizing: border-box;
-                padding: 0.85rem 1rem;
-            }
-            .app-mockup {
-                max-width: 280px;
-                width: 100%;
-                padding: 1.5rem 1rem;
-                border-radius: 28px;
-                aspect-ratio: auto;
-                box-sizing: border-box;
-            }
-            .app-mockup img {
-                width: 80px;
-                margin-bottom: 1rem;
-            }
-            .features {
-                padding: 40px 4%;
-                width: 100%;
-                box-sizing: border-box;
-                overflow: hidden;
-            }
-            .section-header {
-                margin-bottom: 2rem;
-            }
-            .section-header h2 {
-                font-size: 1.8rem;
-            }
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .feature-card {
-                padding: 1.5rem 1.2rem;
-                border-radius: 16px;
-                box-sizing: border-box;
-            }
-            .feature-icon {
-                font-size: 2.2rem;
-                margin-bottom: 0.8rem;
-            }
-            footer {
-                padding: 2.5rem 4% 1.5rem;
-                width: 100%;
-                box-sizing: border-box;
-                overflow: hidden;
-            }
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.2rem;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-        }
+    .hero { position: relative; overflow: hidden; background: #14243d; color: #fff; padding: 85px 0 105px; isolation: isolate; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 90% 18%, rgba(69, 170, 171, .22), transparent 34%), radial-gradient(circle at 15% 105%, rgba(246, 177, 111, .18), transparent 39%), linear-gradient(125deg, #111d32 4%, #1a3450 100%); z-index: -2; }
+    .hero::after { content: ""; position: absolute; width: 640px; height: 640px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 50%; right: -160px; top: -240px; box-shadow: 0 0 0 110px rgba(255, 255, 255, .025), 0 0 0 220px rgba(255, 255, 255, .018); z-index: -1; }
+    .eyebrow { display: inline-flex; gap: 10px; align-items: center; font-size: 12px; font-weight: 790; letter-spacing: .19em; color: #ffe1a9; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; background: #efb459; border-radius: 100%; box-shadow: 0 0 0 5px rgba(239,180,89,.13); }
+    .hero h1 { margin: 22px 0 20px; max-width: 900px; font-size: clamp(40px, 6.5vw, 72px); font-weight: 850; line-height: 1.22; letter-spacing: -.055em; }
+    .hero h1 span { color: #f5c578; }
+    .hero p { max-width: 690px; margin: 0; color: #c7d5e3; font-size: clamp(16px, 1.9vw, 19px); }
+    .hero-actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-link { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 11px 22px; background: #f5c578; color: #263042; font-size: 14px; font-weight: 790; border-radius: 12px; text-decoration: none; transition: transform .2s ease, background .2s ease; }
+    .hero-link:hover, .btn:hover { transform: translateY(-2px); }
+    .hero-link.ghost { border: 1px solid rgba(255,255,255,.23); color: #fff; background: rgba(255,255,255,.06); }
+    .hero-meta { margin-top: 50px; display: flex; align-items: center; gap: 16px; color: #a9c1d2; font-size: 13px; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-meta i { width: 5px; height: 5px; border-radius: 50%; background: #5e8297; }
 
-        @keyframes fadeInMobile {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-        }
+    main { position: relative; }
+    #games { scroll-margin-top: 20px; }
+    .section { padding-top: 80px; padding-bottom: 93px; }
+    .section-head { display: flex; gap: 25px; align-items: end; justify-content: space-between; margin-bottom: 28px; }
+    .section-label { font-size: 12px; letter-spacing: .18em; color: #a56b39; font-weight: 800; }
+    .section-head h2 { margin: 7px 0 0; font-size: clamp(28px, 3.5vw, 40px); letter-spacing: -.045em; line-height: 1.3; }
+    .section-hint { margin: 0; color: var(--muted); font-size: 14px; }
+    .game-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+    .game-card { overflow: hidden; border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; }
+    .visual { position: relative; height: 270px; overflow: hidden; display: grid; place-items: center; }
+    .visual.idiom { background: radial-gradient(circle at 85% 15%, #fff7cd 0, transparent 38%), linear-gradient(135deg,#ffdfd3 0%,#f6bfb1 52%,#fbeae2 100%); }
+    .visual.idiom::before, .visual.idiom::after { content: ""; position: absolute; font-weight: 800; color: rgba(143, 66, 63, .1); font-size: 110px; line-height: 1; transform: rotate(-18deg); }
+    .visual.idiom::before { content: "學"; left: 25px; top: 45px; }
+    .visual.idiom::after { content: "樂"; right: 20px; bottom: 10px; transform: rotate(15deg); }
+    .visual.idiom img { width: 178px; height: 178px; object-fit: contain; border-radius: 38px; box-shadow: 0 22px 38px rgba(117,53,51,.18); position: relative; z-index: 1; }
+    .visual.temple { background: #2a1b17; }
+    .visual.temple::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 45%, rgba(23,11,8,.27)); }
+    .visual.temple img { width: 100%; height: 100%; object-fit: cover; }
+    .visual-note { position: absolute; left: 22px; top: 22px; z-index: 2; padding: 7px 12px; border-radius: 99px; background: rgba(255,255,255,.92); color: #825443; font-weight: 750; font-size: 12px; letter-spacing: .06em; box-shadow: 0 5px 20px rgba(0,0,0,.07); }
+    .visual.temple .visual-note { background: rgba(27,18,13,.82); color: #f8d9a2; border: 1px solid rgba(252,205,139,.3); }
+    .card-body { padding: 31px 32px 30px; display: flex; flex: 1; flex-direction: column; }
+    .card-type { color: #b57551; font-size: 12px; font-weight: 790; letter-spacing: .14em; }
+    .game-card.temple-card .card-type { color: #a07440; }
+    .card-body h3 { margin: 6px 0 8px; font-size: clamp(27px,3vw,34px); line-height: 1.3; letter-spacing: -.035em; }
+    .en-name { color: #8591a0; font-size: 12px; font-weight: 550; letter-spacing: .08em; }
+    .game-desc { color: #516072; font-size: 15px; line-height: 1.85; margin: 15px 0 20px; min-height: 84px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+    .tags span { background: #f2f5f8; color: #576779; padding: 5px 11px; border-radius: 999px; font-size: 12px; font-weight: 650; }
+    .action-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+    .btn { min-height: 45px; padding: 10px 17px; display: inline-flex; justify-content: center; align-items: center; border-radius: 11px; text-decoration: none; font-size: 13px; font-weight: 760; transition: transform .2s ease, background .2s ease; }
+    .btn.primary { color: #fff; background: #192d46; }
+    .btn.primary:hover { background: #284464; }
+    .btn.secondary { color: #34475a; border: 1px solid #dce4ea; background: #fff; }
+    .btn.secondary:hover { background: #f5f7f9; }
 
-        @media (max-width: 400px) {
-            .hero-content h1 {
-                font-size: 1.75rem;
-            }
-            .logo-text {
-                font-size: 1.05rem;
-            }
-            .btn-web .main, .btn-play .main {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    .about-band { background: #eaf0f5; padding: 47px 0; }
+    .about-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 60px; align-items: center; }
+    .about-grid h2 { margin: 0 0 12px; font-size: clamp(24px,3vw,31px); letter-spacing: -.03em; }
+    .about-grid p { margin: 0; color: #5a6b7b; max-width: 650px; font-size: 15px; }
+    .about-items { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
+    .about-items span { background: #fff; border: 1px solid #dce5ed; border-radius: 12px; padding: 12px 15px; font-size: 13px; font-weight: 650; color: #3e5063; }
+    footer { padding: 35px 0 38px; background: #111e30; color: #c4cfd9; }
+    .footer-inner { display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+    .footer-inner p { font-size: 13px; margin: 0; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 22px; }
+    .footer-links a { color: #c4cfd9; text-decoration: none; font-size: 13px; }
+    @media (max-width: 820px) {
+      .hero { padding: 65px 0 76px; }
+      .game-grid { grid-template-columns: 1fr; }
+      .visual { height: 300px; }
+      .game-desc { min-height: 0; }
+      .section { padding-top: 60px; padding-bottom: 65px; }
+      .about-grid { grid-template-columns: 1fr; gap: 24px; }
+      .about-items { justify-content: flex-start; }
+    }
+    @media (max-width: 540px) {
+      .container { width: min(100% - 30px, 1150px); }
+      .topbar { height: 70px; }
+      .brand { font-size: 17px; }
+      .nav { gap: 12px; }
+      .nav a:not(.contact) { display: none; }
+      .nav .contact { font-size: 12px; padding: 7px 11px; }
+      .hero h1 { font-size: clamp(36px, 10vw, 49px); }
+      .hero-meta { margin-top: 34px; flex-wrap: wrap; }
+      .section-head { display: block; }
+      .section-hint { margin-top: 8px; }
+      .visual { height: 225px; }
+      .visual.idiom img { width: 142px; height: 142px; border-radius: 31px; }
+      .card-body { padding: 25px 21px 24px; }
+      .action-row .btn { flex: 1 1 auto; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .footer-links { gap: 13px 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
+  </style>
 </head>
 <body>
-
-    <nav>
-        <a href="#" class="logo-text">
-            <img src="assets/app_icon.png" alt="成語大冒險 Logo">
-            成語大冒險
-        </a>
-        <div class="nav-links">
-            <a href="#features">遊戲特色</a>
-            <a href="privacy.html">隱私權政策</a>
-        </div>
+  <a class="skip" href="#main-content">跳至主要內容</a>
+  <header class="container topbar">
+    <a class="brand" href="/" aria-label="Taitungray 作品集首頁"><span class="brand-mark" aria-hidden="true"></span>Taitungray</a>
+    <nav class="nav" aria-label="網站導覽">
+      <a href="#games">遊戲作品</a>
+      <a href="#about">關於作品</a>
+      <a class="contact" href="mailto:taitungray@gmail.com">聯絡我們 ↗</a>
     </nav>
+  </header>
 
-    <div class="shapes-container">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="eyebrow">ORIGINAL GAMES &amp; APPS</div>
+        <h1 id="hero-title">讓每一場遊戲，<br>都有<span>新發現。</span></h1>
+        <p>從孩子也能輕鬆上手的成語學習，到充滿台灣民俗魅力的漢字塔防。在這裡探索 Taitungray 的遊戲作品，找到下一款想玩的遊戲。</p>
+        <div class="hero-actions">
+          <a class="hero-link" href="#games">探索遊戲作品　↗</a>
+          <a class="hero-link ghost" href="https://taitungray.github.io/idiom" target="_blank" rel="noopener noreferrer">線上玩成語大冒險</a>
+        </div>
+        <div class="hero-meta"><span>兩款特色遊戲</span><i aria-hidden="true"></i><span>Android / Google Play</span><i aria-hidden="true"></i><span>繁體中文</span></div>
+      </div>
+    </section>
+
+    <section class="section container" id="games" aria-labelledby="games-title">
+      <div class="section-head">
+        <div>
+          <div class="section-label">FEATURED GAMES</div>
+          <h2 id="games-title">探索遊戲作品</h2>
+        </div>
+        <p class="section-hint">兩種不同世界，一樣充滿樂趣。</p>
+      </div>
+
+      <div class="game-grid">
+        <article class="game-card" aria-labelledby="idiom-title">
+          <div class="visual idiom">
+            <span class="visual-note">語文學習・益智挑戰</span>
+            <img src="assets/app_icon.png" alt="成語大冒險遊戲圖示" width="178" height="178" fetchpriority="high">
+          </div>
+          <div class="card-body">
+            <div class="card-type">EDUCATIONAL / PUZZLE</div>
+            <h3 id="idiom-title">成語大冒險</h3>
+            <div class="en-name">CHINESE IDIOM LEARNING GAME</div>
+            <p class="game-desc">專為國小學生設計的互動式成語學習遊戲。透過看圖猜成語、成語填空等 13 種趣味挑戰，搭配生活化例句，在遊戲中理解並練習成語。</p>
+            <div class="tags" aria-label="成語大冒險遊戲特色"><span>看圖猜成語</span><span>13 種挑戰玩法</span><span>國小語文學習</span></div>
+            <div class="action-row">
+              <a class="btn primary" href="/developer.html">了解遊戲 ↗</a>
+              <a class="btn secondary" href="https://play.google.com/store/apps/details?id=com.taitungray.chengyu" target="_blank" rel="noopener noreferrer">Google Play ↗</a>
+              <a class="btn secondary" href="/idiom/" target="_blank" rel="noopener noreferrer">網頁版 ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game-card temple-card" aria-labelledby="temple-title">
+          <div class="visual temple">
+            <span class="visual-note">台灣民俗・漢字塔防</span>
+            <img src="incenseashes-site-assets/feature-graphic-v2-1024x500.webp" alt="廟埕守香遊戲主視覺，融合台灣廟宇文化與漢字塔防" width="1024" height="500" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-type">STRATEGY / TOWER DEFENSE</div>
+            <h3 id="temple-title">廟埕守香</h3>
+            <div class="en-name">INCENSE ASHES</div>
+            <p class="game-desc">融合台灣民俗信仰、漢字合成與策略布陣的原創塔防遊戲。運用法器布陣、同字合成與「合字請神」，邀請守護神明共同守住廟埕香火。</p>
+            <div class="tags" aria-label="廟埕守香遊戲特色"><span>台灣神明文化</span><span>漢字合成</span><span>策略塔防</span></div>
+            <div class="action-row">
+              <a class="btn primary" href="/IncenseAshes_developer.html">了解遊戲 ↗</a>
+              <a class="btn secondary" href="https://play.google.com/store/apps/details?id=com.taitungray.incenseashes" target="_blank" rel="noopener noreferrer">Google Play ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about-band" id="about" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div>
+          <h2 id="about-title">用不同玩法，探索更多可能</h2>
+          <p>《成語大冒險》以趣味挑戰協助孩子練習成語；《廟埕守香》則將台灣民俗元素融入漢字策略戰鬥。點選各遊戲的「了解遊戲」，可查看完整玩法、畫面與下載資訊。</p>
+        </div>
+        <div class="about-items" aria-label="遊戲主題"><span>✦ 成語與語文</span><span>✦ 台灣在地文化</span><span>✦ 益智與策略</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2026 Taitungray. Games &amp; Apps.</p>
+      <div class="footer-links">
+        <a href="/developer.html">成語大冒險</a>
+        <a href="/IncenseAshes_developer.html">廟埕守香</a>
+        <a href="/privacy.html">成語大冒險隱私權政策</a>
+        <a href="/IncenseAshes_privacy.html">廟埕守香隱私權政策</a>
+        <a href="mailto:taitungray@gmail.com">電子郵件</a>
+      </div>
     </div>
-
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="badge">🔥 學習類 APP 推薦</div>
-                <h1>輕鬆玩樂學成語<br>成為語文狀元！</h1>
-                <p>專為國小學生設計的互動式成語學習遊戲！透過 3D 黏土卡通風格插圖、生活化例句以及 13 種趣味挑戰模式，讓小朋友在玩樂中輕鬆掌握成語。</p>
-                <div class="cta-buttons">
-                    <a href="https://taitungray.github.io/idom" target="_blank" class="btn-web">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                        </svg>
-                        <div>
-                            <span class="sub">PLAY ONLINE</span>
-                            <span class="main">網頁版線上玩</span>
-                        </div>
-                    </a>
-                    <a href="#" class="btn-play" onclick="alert('即將在 Google Play 上架！')">
-                        <svg viewBox="0 0 512 512" width="24" height="24" fill="currentColor">
-                            <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
-                        </svg>
-                        <div>
-                            <span class="sub">GET IT ON</span>
-                            <span class="main">Google Play</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="hero-image">
-                <div class="app-mockup">
-                    <img src="assets/app_icon.png" alt="成語大冒險 Icon">
-                    <h2 style="color: var(--primary-color); margin-bottom: 10px;">成語大冒險</h2>
-                    <p style="color: var(--text-light); text-align: center; font-size: 0.9rem;">核心關卡可離線<br>符合兒童保護政策</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="section-header">
-            <h2>豐富的學習模式</h2>
-            <p style="color: var(--text-light);">13 種多樣化的遊戲玩法，全方位提升語文能力</p>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🖼️</div>
-                <h3>看圖猜成語</h3>
-                <p>觀察精美的 3D 動畫風插圖，從字元池中拼出正確成語，激發聯想力！</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎒</div>
-                <h3>升官晉爵系統</h3>
-                <p>答對賺取經驗值（XP），從「童生」一路晉升至最高榮譽「狀元」！</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">✏️</div>
-                <h3>成語填空賽</h3>
-                <p>融入國小日常生活例句，挖空填字強化語文實用與寫作能力。</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📓</div>
-                <h3>專屬成語筆記</h3>
-                <p>自動收錄解鎖過的成語，隨時複習注音、拼音、解釋與例句。</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">⏱️</div>
-                <h3>計時挑戰賽</h3>
-                <p>60 秒極限答題，答對加秒、答錯扣秒，挑戰自己的最高得分！</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <h3>離線安全遊玩</h3>
-                <p>核心關卡可離線遊玩；完全無廣告打擾，符合兒童保護政策，家長最放心。</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="assets/app_icon.png" alt="Logo" width="30" style="border-radius: 8px;">
-                成語大冒險
-            </div>
-            <div class="footer-links">
-                <a href="https://taitungray.github.io/idom" target="_blank">網頁版線上玩</a>
-                <a href="#features">遊戲特色</a>
-                <a href="privacy.html">隱私權政策</a>
-                <a href="mailto:support@example.com">聯絡我們</a>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2026 成語大冒險. All rights reserved. 專為國小生設計的語文學習APP。
-        </div>
-    </footer>
-
-    <script>
-        // Simple scroll effect for nav
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.boxShadow = 'var(--shadow-soft)';
-            } else {
-                nav.style.boxShadow = 'none';
-            }
-        });
-    </script>
+  </footer>
 </body>
 </html>
