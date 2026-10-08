@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#190f0c">
+  <title>廟埕守香玩法指南｜漢字合成、合字請神與策略塔防</title>
+  <meta name="description" content="廟埕守香（Incense Ashes）玩法指南：認識 6×8 棋盤法器布陣、同字合成、媽祖關公觀音合字請神，以及主線 10 章 100 關與神明養成。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://taitungray.github.io/incenseashes-guide.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="Taitungray 遊戲作品集">
+  <meta property="og:title" content="廟埕守香玩法指南｜漢字合成、合字請神與策略塔防">
+  <meta property="og:description" content="廟埕守香（Incense Ashes）玩法指南：認識 6×8 棋盤法器布陣、同字合成、媽祖關公觀音合字請神，以及主線 10 章 100 關與神明養成。">
+  <meta property="og:url" content="https://taitungray.github.io/incenseashes-guide.html">
+  <meta property="og:image" content="https://taitungray.github.io/incenseashes-site-assets/feature-graphic-v2-1024x500.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://taitungray.github.io/incenseashes-guide.html#article",
+      "headline": "廟埕守香玩法指南｜漢字合成、合字請神與策略塔防",
+      "description": "廟埕守香（Incense Ashes）玩法指南：認識 6×8 棋盤法器布陣、同字合成、媽祖關公觀音合字請神，以及主線 10 章 100 關與神明養成。",
+      "inLanguage": "zh-Hant",
+      "image": "https://taitungray.github.io/incenseashes-site-assets/feature-graphic-v2-1024x500.webp",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://taitungray.github.io/incenseashes-guide.html"
+      },
+      "about": {
+        "@type": "VideoGame",
+        "name": "廟埕守香",
+        "url": "https://taitungray.github.io/IncenseAshes_developer.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Taitungray",
+        "url": "https://taitungray.github.io/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://taitungray.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "廟埕守香",
+          "item": "https://taitungray.github.io/IncenseAshes_developer.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "玩法指南",
+          "item": "https://taitungray.github.io/incenseashes-guide.html"
+        }
+      ]
+    }
+  ]
+}</script>
+  <style>
+:root{--content:1140px;--r:18px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;font-family:'Noto Sans TC',system-ui,-apple-system,'Microsoft JhengHei',sans-serif;line-height:1.85;background:var(--bg);color:var(--ink)}
+a{color:inherit}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+img{max-width:100%;height:auto;display:block}
+.wrap{width:min(var(--content),calc(100% - 40px));margin:auto}
+.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(16px);background:var(--nav);border-bottom:1px solid var(--edge)}
+.top-inner{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:1.04rem;font-weight:900;white-space:nowrap}
+.brand-dot{display:inline-block;width:28px;height:28px;background:var(--accent);border-radius:9px;box-shadow:0 0 0 5px var(--soft)}
+nav{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-size:.87rem;font-weight:750}
+nav a:hover{color:var(--accent)}
+nav .nav-cta{background:var(--accent);color:var(--onaccent);padding:8px 14px;border-radius:10px}
+.hero{position:relative;overflow:hidden;padding:76px 0 85px;background:var(--hero);color:var(--heroink)}
+.hero:before{content:"";position:absolute;inset:0;pointer-events:none;background:var(--decoration)}
+.hero .wrap{position:relative;z-index:1}
+.crumb{font-size:.84rem;color:var(--heromuted);display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:20px}
+.crumb a{text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,.72fr);gap:58px;align-items:center}
+.kicker{margin:0 0 14px;font-weight:900;letter-spacing:.18em;font-size:.76rem;color:var(--herokicker)}
+h1{font-size:clamp(2.5rem,5vw,4.65rem);line-height:1.26;letter-spacing:-.055em;margin:0 0 20px}
+.hero-lead{font-size:1.08rem;color:var(--heromuted);max-width:650px;margin:0 0 29px}
+.buttonrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.button{min-height:48px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:12px;padding:11px 19px;font-size:.93rem;font-weight:800;background:var(--accent);color:var(--onaccent);transition:transform .18s ease}
+.button:hover{transform:translateY(-2px)}
+.button.ghost{border:1px solid var(--heroborder);background:var(--heroglass);color:var(--heroink)}
+.hero-pic{position:relative;margin:0}
+.hero-pic .hero-frame{overflow:hidden;border:1px solid var(--heroborder);box-shadow:0 22px 55px var(--hero-shadow);border-radius:26px;display:flex;align-items:center;justify-content:center;background:var(--hero-media);min-height:300px;position:relative}
+.hero-pic img{width:100%;max-height:380px;object-fit:cover}
+.hero-pic .game-icon{width:min(240px,64%);height:auto;aspect-ratio:1;object-fit:contain;border-radius:28%;box-shadow:0 26px 65px #843e4040}
+.hero-pic figcaption{text-align:right;font-size:.75rem;color:var(--heromuted);padding-top:8px}
+.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:23px}
+.chips span{display:inline-flex;border:1px solid var(--heroborder);border-radius:100px;color:var(--heromuted);background:var(--heroglass);font-size:.76rem;padding:4px 11px}
+main .content-grid{display:grid;grid-template-columns:235px minmax(0,1fr);gap:46px;align-items:start;padding:55px 0 90px}
+.sidebar{position:sticky;top:100px}
+.sidebar .toc{padding:22px;border:1px solid var(--edge);background:var(--card);border-radius:var(--r);box-shadow:var(--shadow)}
+.sidebar h2{font-size:.81rem;letter-spacing:.12em;color:var(--muted);margin:0 0 11px}
+.sidebar a{display:block;color:var(--muted);text-decoration:none;font-weight:700;font-size:.88rem;padding:8px 0}
+.sidebar a:hover{color:var(--accent)}
+.sidebar .backlink{display:inline-block;margin:19px 0;color:var(--accent);font-weight:800;font-size:.85rem;text-decoration:none}
+.article{min-width:0}
+.article section{scroll-margin-top:94px;margin:0 0 67px}
+.eyebrow{color:var(--accent);font-size:.77rem;letter-spacing:.19em;font-weight:850;margin:0 0 8px}
+h2{font-size:clamp(1.65rem,2.4vw,2.1rem);letter-spacing:-.035em;line-height:1.4;margin:0 0 17px}
+h3{font-size:1.14rem;line-height:1.5;margin:0 0 8px}
+p{margin:0 0 16px}
+.article p{color:var(--sub)}
+.intro{font-size:1.06rem}
+.panel{padding:24px;border-radius:var(--r);background:var(--card);border:1px solid var(--edge);box-shadow:var(--shadow)}
+.panel p:last-child{margin-bottom:0}
+.cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:23px 0}
+.card{padding:24px;border-radius:var(--r);background:var(--card);border:1px solid var(--edge)}
+.card .num{display:inline-block;font-size:.75rem;font-weight:900;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.card p{font-size:.95rem;margin-bottom:0}
+.steps{padding:0;list-style:none;display:grid;gap:16px;counter-reset:steps}
+.steps li{padding:22px 24px 22px 76px;position:relative;border-radius:var(--r);background:var(--card);border:1px solid var(--edge);counter-increment:steps;color:var(--sub)}
+.steps li:before{content:counter(steps,decimal-leading-zero);position:absolute;left:23px;top:21px;font-size:1.05rem;font-weight:900;color:var(--accent)}
+.steps strong{display:block;color:var(--ink);font-weight:850;margin-bottom:4px}
+.callout{border-left:4px solid var(--accent);padding:20px 24px;background:var(--soft);border-radius:0 14px 14px 0;margin:23px 0}
+.callout strong{display:block;margin-bottom:6px}
+.callout p{margin:0}
+.figure{background:var(--card);border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;margin:26px 0}
+.figure img{width:100%;height:auto;max-height:470px;object-fit:contain;background:var(--figurebg)}
+.figure figcaption{padding:11px 18px;color:var(--muted);font-size:.84rem}
+.detailtable{border-collapse:collapse;width:100%;overflow:hidden;border-radius:var(--r);font-size:.94rem}
+.detailtable th,.detailtable td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--edge);vertical-align:top}
+.detailtable th{background:var(--soft);width:33%;font-weight:850}
+.detailtable td{background:var(--card);color:var(--sub)}
+.faq{display:grid;gap:10px}
+.faq details{padding:18px 22px;border-radius:13px;background:var(--card);border:1px solid var(--edge)}
+.faq summary{font-weight:800;cursor:pointer;line-height:1.6}
+.faq details p{margin:12px 0 0}
+.endcta{border-radius:24px;background:var(--endbg);color:var(--endink);padding:35px 38px;display:flex;gap:20px;align-items:center;justify-content:space-between}
+.endcta h2{font-size:1.65rem;margin:0 0 5px}
+.endcta p{color:var(--endmuted);margin:0}
+.endcta .button{flex:none}
+.footer{border-top:1px solid var(--edge);padding:32px 0 40px;color:var(--muted);font-size:.85rem}
+.footer-inner{display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer a{text-decoration:none}
+.footer a:hover{text-decoration:underline}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:34px}.hero-pic{max-width:590px}.hero-pic .hero-frame{min-height:210px}.hero{padding:38px 0 56px}main .content-grid{grid-template-columns:1fr;padding-top:30px}.sidebar{position:static}.sidebar .toc{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:12px 16px}.sidebar h2{width:100%;margin:0}.sidebar a{padding:3px 0}.sidebar .backlink{margin:11px 0 0}}
+@media(max-width:560px){.wrap{width:calc(100% - 30px)}.top-inner{min-height:62px}.top nav{gap:12px}.top nav a:not(.nav-cta){display:none}.brand{font-size:.91rem}.hero-grid{gap:27px}.hero-pic .hero-frame{min-height:200px}.hero-pic .hero-frame img:not(.game-icon){max-height:250px}.cardgrid{grid-template-columns:1fr}.steps li{padding:17px 16px 17px 61px}.steps li:before{left:18px;top:17px}.panel,.card{padding:19px}.endcta{padding:25px 23px;display:block}.endcta .button{margin-top:22px}.buttonrow .button{flex:1 1 auto}.detailtable th,.detailtable td{padding:11px 9px}.hero-lead{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}}
+
+
+body{--bg:#190f0c;--card:#251815;--ink:#ffeacf;--sub:#d2baa0;--muted:#b8a087;--accent:#f2bb60;--onaccent:#29180e;--soft:#38231a;--edge:#593a28;--shadow:0 15px 35px rgba(0,0,0,.13);--nav:rgba(21,11,7,.94);--focus:#fbdea0;--hero:linear-gradient(125deg,#140b09 5%,#3c1e17 72%,#6c3020);--heroink:#fff4df;--heromuted:#ebd4b4;--herokicker:#ffd69a;--heroborder:rgba(255,215,151,.24);--heroglass:rgba(45,22,13,.4);--hero-shadow:rgba(0,0,0,.35);--hero-media:#281510;--decoration:radial-gradient(circle at 2% 80%,rgba(202,83,35,.21),transparent 42%),radial-gradient(circle at 100% 10%,rgba(231,179,69,.16),transparent 40%);--figurebg:#1d100b;--endbg:#632c20;--endink:#fff5dc;--endmuted:#e9c4ac}
+</style>
+</head>
+<body>
+  <a href="#main" style="position:absolute;left:-10000px;top:auto" onfocus="this.style.left='15px'" onblur="this.style.left='-10000px'">跳至內容</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="/"><span class="brand-dot" aria-hidden="true"></span>Taitungray <span style="font-size:.8em;color:var(--muted)">遊戲作品集</span></a>
+      <nav aria-label="網站導覽"><a href="/">首頁</a><a href="/IncenseAshes_developer.html">遊戲介紹</a><a class="nav-cta" href="https://play.google.com/store/apps/details?id=com.taitungray.incenseashes" target="_blank" rel="noopener noreferrer">Google Play ↗</a></nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="wrap">
+      <div class="crumb" aria-label="麵包屑導覽"><a href="/">首頁</a><span>／</span><a href="/IncenseAshes_developer.html">廟埕守香</a><span>／</span><span>玩法指南</span></div>
+      <div class="hero-grid">
+        <div><p class="kicker">INCENSE ASHES / GAME GUIDE</p><h1>以字成陣，守住廟埕的香火。</h1><p class="hero-lead">從六乘八棋盤的法器布陣，到同字合成與「合字請神」，認識《廟埕守香》最有特色的台灣民俗塔防玩法。</p>
+          <div class="buttonrow"><a class="button" href="/IncenseAshes_developer.html">查看遊戲介紹 ↗</a><a class="button ghost" href="https://play.google.com/store/apps/details?id=com.taitungray.incenseashes" target="_blank" rel="noopener noreferrer">Google Play ↗</a></div>
+          <div class="chips"><span>台灣民俗</span><span>策略塔防</span><span>漢字合成</span><span>10 章 100 關</span></div>
+        </div>
+        <figure class="hero-pic"><div class="hero-frame"><img src="incenseashes-site-assets/feature-graphic-v2-1024x500.webp" alt="廟埕守香結合台灣民俗的遊戲主視覺" width="1024" height="500" fetchpriority="high"></div><figcaption>廟埕守香 ・ 官方網站圖片</figcaption></figure>
+      </div>
+    </div>
+  </section>
+  <main id="main" class="wrap content-grid">
+    <aside class="sidebar" aria-label="本頁導覽">
+      <div class="toc"><h2>本頁指南 / CONTENTS</h2><a href="#overview">玩法總覽</a><a href="#howto">新手布陣思路</a><a href="#merge">合字請神</a><a href="#modes">關卡與養成</a><a href="#faq">常見問題</a></div>
+      <a class="backlink" href="/idiom-guide.html">探索另一款遊戲：成語大冒險玩法指南 ↗</a>
+    </aside>
+    <article class="article">
+      
+<section id="overview">
+<p class="eyebrow">01 / CORE RULES</p><h2>漢字不只是文字，也是你的塔防陣法</h2>
+<p class="intro">《廟埕守香》（Incense Ashes）是以台灣民俗信仰為主題的漢字策略塔防遊戲。玩家把法器布置在 <strong>6×8 棋盤</strong>上，依敵人路線安排攻勢，透過同字合成強化陣容，並用特定字根組合「合字請神」。</p>
+<div class="cardgrid">
+<article class="card"><span class="num">核心玩法 01</span><h3>陣｜拖曳布陣</h3><p>將法器放上棋盤，考量道路、距離與敵人特性，安排近遠攻勢，並隨戰況調整位置。</p></article>
+<article class="card"><span class="num">核心玩法 02</span><h3>合｜同字合成</h3><p>相同法器與等級可進行合成強化。在提升單位強度與保留棋盤空間之間做選擇。</p></article>
+<article class="card"><span class="num">核心玩法 03</span><h3>神｜合字請神</h3><p>安排特定漢字字根相鄰，例如「媽＋祖」，就能請神顯靈並發動對應能力。</p></article>
+<article class="card"><span class="num">核心玩法 04</span><h3>守｜面對多種敵勢</h3><p>十章主線、一百道策略關卡，另有極限挑戰與資源試煉，測試不同布陣思路。</p></article>
+</div>
+<figure class="figure"><img src="incenseashes-site-assets/screenshots/01-gameplay-v2.webp" alt="廟埕守香六乘八棋盤，以漢字法器布陣對抗敵人" width="600" loading="lazy"><figcaption>遊戲畫面：棋盤上的漢字法器與敵方進攻路線。</figcaption></figure>
+</section>
+<section id="howto">
+<p class="eyebrow">02 / STARTER STRATEGY</p><h2>新手布陣，先想清楚這四件事</h2>
+<p>下列為依官網玩法整理的<strong>一般策略建議</strong>，不是指定關卡的必勝配置；實際仍需配合當前敵人與可用法器。</p>
+<ol class="steps">
+<li><strong>先看路線，再放法器</strong>因為法器有位置與射程概念，優先觀察敵人行進方向，避免把主要戰力集中在無法有效覆蓋的區域。</li>
+<li><strong>保持近遠攻勢的彈性</strong>面對不同敵人，不要只考慮單一輸出點。官方玩法允許隨戰況交換位置，應利用這個特色調整陣型。</li>
+<li><strong>評估是否要立即合成</strong>相同法器與等級可合成強化，但合成後也可能改變棋盤上的單位數量與佈局；先比較目前最缺哪一種能力。</li>
+<li><strong>為請神字根留下空間</strong>除了法器強度，也要注意可否讓神明字根相鄰。若想觸發合字請神，就不能只看單格的攻擊效率。</li>
+</ol>
+<div class="callout"><strong>觀念小抄</strong><p>路線決定站位，敵勢決定配置；合成影響戰力與空間，合字則帶來額外的神明能力。</p></div>
+</section>
+<section id="merge">
+<p class="eyebrow">03 / SUMMON THE DEITIES</p><h2>合字請神：把神明名字變成戰鬥機制</h2>
+<p>這是《廟埕守香》最鮮明的特色之一。官網介紹中，特定字根只要依遊戲規則相鄰，就能請神顯靈。以下是公開展示的組字範例：</p>
+<div class="cardgrid">
+<article class="card"><span class="num">合字範例 01</span><h3>媽 ＋ 祖</h3><p>以媽祖相關字根組合，呼應台灣廟埕與進香文化的世界觀。</p></article>
+<article class="card"><span class="num">合字範例 02</span><h3>關 ＋ 公</h3><p>透過兩個字根相鄰的方式，形成「關公」的請神組合。</p></article>
+<article class="card"><span class="num">合字範例 03</span><h3>觀 ＋ 音</h3><p>以「觀音」字根組合觸發請神概念，為布陣增加另一個考量。</p></article>
+<article class="card"><span class="num">戰術重點</span><h3>字根的位置同樣重要</h3><p>組字需要考慮相鄰關係，因此棋盤留位與法器配置可以一起思考。</p></article>
+</div>
+<p>各神明的具體技能、數值與可用條件，以遊戲內顯示為準；此頁不虛構尚未公開的效果。</p>
+<figure class="figure"><img src="incenseashes-site-assets/screenshots/04-collection-v2.webp" alt="廟埕守香神明與法器圖鑑畫面" loading="lazy"><figcaption>遊戲畫面：神明、法器與妖魔圖鑑，以及收集養成內容。</figcaption></figure>
+</section>
+<section id="modes">
+<p class="eyebrow">04 / CAMPAIGN &amp; DAILY</p><h2>不只有塔防，還有神明養成與廟埕日常</h2>
+<p>除了合字布陣，官網還展示了主線推進、進香路線與每日課業等元素。以下整理遊戲公開介紹的內容：</p>
+<table class="detailtable"><tbody>
+<tr><th scope="row">主線章節</th><td>10 章、共 100 道策略關卡，包含章節魔王挑戰。</td></tr>
+<tr><th scope="row">極限挑戰</th><td>20 波極限挑戰，另有資源試煉。</td></tr>
+<tr><th scope="row">收藏與養成</th><td>收錄神明、法器與妖魔圖鑑，能培養神明並搭配上陣陣容。</td></tr>
+<tr><th scope="row">廟埕日常</th><td>求籤、遶境、香油箱、每日三炷香課業等系統。</td></tr>
+<tr><th scope="row">世界觀</th><td>以台灣民俗廟埕為舞台，結合守香、進香與神明守護的題材。</td></tr>
+</tbody></table>
+<figure class="figure"><img src="incenseashes-site-assets/screenshots/05-procession-v2.webp" alt="廟埕守香大甲媽祖進香路線玩法畫面" loading="lazy"><figcaption>遊戲畫面：大甲媽祖進香路線與沿途結緣獎勵。</figcaption></figure>
+<div class="callout"><strong>想知道有沒有新手最強陣容？</strong><p>因為不同關卡的敵人與手上持有的法器會影響配置，這份指南先整理通用思路；實際陣容仍以當前版本和遊戲內規則為準。</p></div>
+</section>
+<section id="faq">
+<p class="eyebrow">05 / QUESTIONS</p><h2>廟埕守香常見問題</h2>
+<div class="faq">
+<details><summary>《廟埕守香》是什麼類型的遊戲？</summary><p>它是一款以台灣民俗文化為題材，結合漢字合成、法器布陣與神明請神的 Android 策略塔防遊戲。</p></details>
+<details><summary>合字請神有哪些組合？</summary><p>官網列出的例子包括「媽＋祖」、「關＋公」與「觀＋音」。技能效果與其他組合以實際遊戲為準。</p></details>
+<details><summary>有多少關卡？</summary><p>官方介紹為 10 章主線、100 道策略關卡，並包含極限挑戰和資源試煉等模式。</p></details>
+<details><summary>可以在哪裡下載？</summary><p>可從 Google Play 前往《廟埕守香》Android App 頁面，確認所在地區的實際提供情況。</p></details>
+</div></section>
+
+      <div class="endcta"><div><h2>準備好開始守護香火了嗎？</h2><p>前往官方遊戲介紹，或直接到 Google Play 查看 App。</p></div><a class="button" href="https://play.google.com/store/apps/details?id=com.taitungray.incenseashes" target="_blank" rel="noopener noreferrer">前往 Google Play ↗</a></div>
+    </article>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><span>© 2026 Taitungray ・ 廟埕守香玩法指南</span><div class="footer-links"><a href="/">作品集首頁</a><a href="/IncenseAshes_developer.html">遊戲官網</a><a href="/idiom-guide.html">成語大冒險玩法指南</a><a href="mailto:taitungray@gmail.com">聯絡我們</a></div></div></footer>
+</body>
+</html>
